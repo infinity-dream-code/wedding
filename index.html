@@ -1512,27 +1512,6 @@
             overflow: hidden;
         }
 
-        .couple-botanica {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .couple-leaf {
-            position: absolute;
-            pointer-events: none;
-            opacity: var(--leaf-op, 0.35);
-            width: var(--leaf-size, 28px);
-            transform: rotate(var(--leaf-rot, 0deg));
-        }
-
-        .couple-leaf svg {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-
         .sakura-rating .rating-leaf svg {
             display: block;
             width: 100%;
@@ -1606,7 +1585,7 @@
             stroke-dashoffset: 0;
         }
 
-        #couple>:not(.couple-botanica) {
+        #couple > * {
             position: relative;
             z-index: 2;
         }
@@ -2400,7 +2379,8 @@
         </section>
 
         <section id="couple">
-            <div class="couple-botanica" id="coupleBotanica" aria-hidden="true">
+            <p class="eyebrow reveal-up">Kedua Mempelai</p>
+            <div class="sakura-rating reveal-up" aria-hidden="true">
                 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
                     <symbol id="sakuraLeafIcon" viewBox="0 0 52 30">
                         <path d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" fill="#6BCB77"/>
@@ -2408,37 +2388,6 @@
                         <path d="M8 21 C14 15, 22 9, 36 7" stroke="#2E9B4A" stroke-width="0.8" stroke-linecap="round" opacity="0.65"/>
                     </symbol>
                 </svg>
-                <div class="couple-leaf" style="left:2%;top:5%;width:22px;opacity:.38;transform:rotate(-32deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:8%;top:11%;width:18px;opacity:.34;transform:rotate(18deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:4%;top:19%;width:24px;opacity:.36;transform:rotate(-48deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:9%;top:27%;width:16px;opacity:.32;transform:rotate(12deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:3%;top:35%;width:20px;opacity:.37;transform:rotate(-22deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:7%;top:43%;width:22px;opacity:.33;transform:rotate(38deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:2%;top:62%;width:18px;opacity:.35;transform:rotate(-55deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:6%;top:70%;width:20px;opacity:.36;transform:rotate(8deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:3%;top:78%;width:17px;opacity:.31;transform:rotate(-18deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:8%;top:86%;width:22px;opacity:.38;transform:rotate(42deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:4%;top:94%;width:19px;opacity:.34;transform:rotate(-40deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:9%;top:16%;width:15px;opacity:.33;transform:rotate(52deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:5%;top:54%;width:16px;opacity:.32;transform:rotate(-12deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:2%;top:47%;width:14px;opacity:.3;transform:rotate(25deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:91%;top:6%;width:22px;opacity:.38;transform:scaleX(-1) rotate(28deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:88%;top:13%;width:17px;opacity:.34;transform:scaleX(-1) rotate(-35deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:93%;top:21%;width:24px;opacity:.36;transform:scaleX(-1) rotate(45deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:89%;top:29%;width:18px;opacity:.33;transform:scaleX(-1) rotate(-20deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:92%;top:37%;width:20px;opacity:.37;transform:scaleX(-1) rotate(32deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:88%;top:45%;width:16px;opacity:.31;transform:scaleX(-1) rotate(-48deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:94%;top:63%;width:22px;opacity:.38;transform:scaleX(-1) rotate(15deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:90%;top:71%;width:18px;opacity:.34;transform:scaleX(-1) rotate(-38deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:93%;top:79%;width:21px;opacity:.36;transform:scaleX(-1) rotate(50deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:89%;top:87%;width:19px;opacity:.33;transform:scaleX(-1) rotate(-15deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:92%;top:95%;width:17px;opacity:.32;transform:scaleX(-1) rotate(22deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:91%;top:17%;width:20px;opacity:.35;transform:scaleX(-1) rotate(-55deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:88%;top:55%;width:15px;opacity:.3;transform:scaleX(-1) rotate(38deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-                <div class="couple-leaf" style="left:94%;top:48%;width:14px;opacity:.31;transform:scaleX(-1) rotate(-25deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
-            </div>
-            <p class="eyebrow reveal-up">Kedua Mempelai</p>
-            <div class="sakura-rating reveal-up" aria-hidden="true">
                 <span class="rating-leaf left"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></span>
                 <div class="rating-track">
                     <span class="rating-dot"></span>
