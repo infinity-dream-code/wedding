@@ -2393,7 +2393,54 @@
         </section>
 
         <section id="couple">
-            <div class="couple-botanica" id="coupleBotanica" aria-hidden="true"></div>
+            <div class="couple-botanica" id="coupleBotanica" aria-hidden="true">
+                <?php
+                $coupleLeafSlots = [
+                    ['l' => 4, 't' => 5, 's' => 24, 'r' => -32, 'o' => 0.34],
+                    ['l' => 14, 't' => 11, 's' => 20, 'r' => 18, 'o' => 0.28],
+                    ['l' => 7, 't' => 19, 's' => 26, 'r' => -48, 'o' => 0.3],
+                    ['l' => 18, 't' => 26, 's' => 18, 'r' => 12, 'o' => 0.26],
+                    ['l' => 5, 't' => 34, 's' => 22, 'r' => -22, 'o' => 0.32],
+                    ['l' => 12, 't' => 41, 's' => 28, 'r' => 38, 'o' => 0.27],
+                    ['l' => 3, 't' => 49, 's' => 20, 'r' => -55, 'o' => 0.29],
+                    ['l' => 16, 't' => 56, 's' => 24, 'r' => 8, 'o' => 0.31],
+                    ['l' => 8, 't' => 64, 's' => 19, 'r' => -18, 'o' => 0.25],
+                    ['l' => 20, 't' => 71, 's' => 26, 'r' => 42, 'o' => 0.33],
+                    ['l' => 6, 't' => 78, 's' => 21, 'r' => -40, 'o' => 0.28],
+                    ['l' => 15, 't' => 85, 's' => 23, 'r' => 15, 'o' => 0.3],
+                    ['l' => 10, 't' => 92, 's' => 17, 'r' => -28, 'o' => 0.24],
+                    ['l' => 19, 't' => 15, 's' => 22, 'r' => 52, 'o' => 0.27],
+                    ['l' => 9, 't' => 58, 's' => 25, 'r' => -12, 'o' => 0.29],
+                    ['l' => 78, 't' => 6, 's' => 23, 'r' => 28, 'o' => 0.32, 'f' => 1],
+                    ['l' => 90, 't' => 13, 's' => 19, 'r' => -35, 'o' => 0.26, 'f' => 1],
+                    ['l' => 82, 't' => 21, 's' => 27, 'r' => 45, 'o' => 0.3, 'f' => 1],
+                    ['l' => 76, 't' => 28, 's' => 21, 'r' => -20, 'o' => 0.28, 'f' => 1],
+                    ['l' => 88, 't' => 36, 's' => 24, 'r' => 32, 'o' => 0.31, 'f' => 1],
+                    ['l' => 80, 't' => 43, 's' => 18, 'r' => -48, 'o' => 0.25, 'f' => 1],
+                    ['l' => 92, 't' => 50, 's' => 26, 'r' => 15, 'o' => 0.33, 'f' => 1],
+                    ['l' => 77, 't' => 57, 's' => 20, 'r' => -38, 'o' => 0.27, 'f' => 1],
+                    ['l' => 86, 't' => 65, 's' => 25, 'r' => 50, 'o' => 0.29, 'f' => 1],
+                    ['l' => 81, 't' => 72, 's' => 22, 'r' => -15, 'o' => 0.3, 'f' => 1],
+                    ['l' => 91, 't' => 79, 's' => 19, 'r' => 22, 'o' => 0.26, 'f' => 1],
+                    ['l' => 79, 't' => 86, 's' => 28, 'r' => -42, 'o' => 0.32, 'f' => 1],
+                    ['l' => 87, 't' => 93, 's' => 21, 'r' => 8, 'o' => 0.28, 'f' => 1],
+                    ['l' => 83, 't' => 17, 's' => 23, 'r' => -55, 'o' => 0.27, 'f' => 1],
+                    ['l' => 76, 't' => 46, 's' => 24, 'r' => 38, 'o' => 0.31, 'f' => 1],
+                    ['l' => 94, 't' => 61, 's' => 17, 'r' => -25, 'o' => 0.24, 'f' => 1],
+                ];
+                foreach ($coupleLeafSlots as $leaf) :
+                    $flip = !empty($leaf['f']) ? 'scaleX(-1) ' : '';
+                    $rot = $leaf['r'];
+                    $op = $leaf['o'];
+                    $size = $leaf['s'];
+                    $left = $leaf['l'];
+                    $top = $leaf['t'];
+                ?>
+                <div class="couple-leaf" style="left:<?= $left ?>%;top:<?= $top ?>%;width:<?= $size ?>px;opacity:<?= $op ?>;transform:<?= $flip ?>rotate(<?= $rot ?>deg);">
+                    <img src="assets/sakura/leaf.svg" alt="" loading="lazy" draggable="false">
+                </div>
+                <?php endforeach; ?>
+            </div>
             <p class="eyebrow reveal-up">Kedua Mempelai</p>
             <div class="sakura-rating reveal-up" aria-hidden="true">
                 <img class="rating-leaf left" src="assets/sakura/leaf.svg" alt="" loading="lazy" draggable="false">
@@ -2701,192 +2748,6 @@
                 s.style.setProperty('--op', (0.25 + Math.random() * 0.45).toFixed(2));
                 layer.appendChild(s);
             }
-        })();
-
-        (function scatterCoupleLeaves() {
-            const layer = document.getElementById('coupleBotanica');
-            const section = document.getElementById('couple');
-            if (!layer || !section) return;
-
-            const LEAF_ASPECT = 30 / 52;
-            const PAD = 38;
-            const MIN_GAP = 14;
-
-            function getExclusions() {
-                const box = section.getBoundingClientRect();
-                const blocks = section.querySelectorAll('.eyebrow, .sakura-rating, .couple-card, .amp-divider');
-                return Array.from(blocks).map(function(el) {
-                    const r = el.getBoundingClientRect();
-                    return {
-                        left: ((r.left - box.left - PAD) / box.width) * 100,
-                        top: ((r.top - box.top - PAD) / box.height) * 100,
-                        right: ((r.right - box.left + PAD) / box.width) * 100,
-                        bottom: ((r.bottom - box.top + PAD) / box.height) * 100
-                    };
-                });
-            }
-
-            function overlaps(left, top, wPct, hPct, exclusions) {
-                const right = left + wPct;
-                const bottom = top + hPct;
-                return exclusions.some(function(ex) {
-                    return !(right < ex.left || left > ex.right || bottom < ex.top || top > ex.bottom);
-                });
-            }
-
-            function tooCloseToOthers(left, top, wPct, hPct, others, box) {
-                const cx = left + wPct / 2;
-                const cy = top + hPct / 2;
-                return others.some(function(o) {
-                    const ox = o.left + o.wPct / 2;
-                    const oy = o.top + o.hPct / 2;
-                    const dx = (cx - ox) * box.width / 100;
-                    const dy = (cy - oy) * box.height / 100;
-                    return Math.hypot(dx, dy) < MIN_GAP;
-                });
-            }
-
-            function spawnLeaf(left, top, size, rot, op, flip) {
-                const el = document.createElement('div');
-                el.className = 'couple-leaf';
-                el.style.left = left + '%';
-                el.style.top = top + '%';
-                el.style.width = size + 'px';
-                el.style.opacity = op.toFixed(2);
-                el.style.transform = (flip ? 'scaleX(-1) ' : '') + 'rotate(' + rot.toFixed(1) + 'deg)';
-                el.innerHTML = '<img src="assets/sakura/leaf.svg" alt="" draggable="false" loading="lazy">';
-                layer.appendChild(el);
-            }
-
-            function placeLeaves() {
-                layer.innerHTML = '';
-                const box = section.getBoundingClientRect();
-                if (!box.width || !box.height) return;
-
-                const exclusions = getExclusions();
-                const placed = [];
-
-                function tryPlace(zone) {
-                    const size = 14 + Math.random() * 18;
-                    const wPct = (size / box.width) * 100;
-                    const hPct = ((size * LEAF_ASPECT) / box.height) * 100;
-                    const maxLeft = zone.leftMax - wPct;
-                    const maxTop = zone.topMax - hPct;
-                    if (maxLeft <= zone.leftMin || maxTop <= zone.topMin) return false;
-
-                    const left = zone.leftMin + Math.random() * (maxLeft - zone.leftMin);
-                    const top = zone.topMin + Math.random() * (maxTop - zone.topMin);
-                    if (overlaps(left, top, wPct, hPct, exclusions)) return false;
-                    if (tooCloseToOthers(left, top, wPct, hPct, placed, box)) return false;
-
-                    spawnLeaf(left, top, size, -70 + Math.random() * 140, 0.16 + Math.random() * 0.3, Math.random() > 0.4);
-                    placed.push({ left: left, top: top, wPct: wPct, hPct: hPct });
-                    return true;
-                }
-
-                function zoneArea(zone) {
-                    return Math.max(0, zone.leftMax - zone.leftMin) * Math.max(0, zone.topMax - zone.topMin);
-                }
-
-                function buildGapZones(sorted, gutterLeft, gutterRight) {
-                    const zones = [];
-                    if (!sorted.length) return zones;
-
-                    if (sorted[0].top > 4) {
-                        zones.push({ leftMin: gutterLeft.leftMin, leftMax: gutterLeft.leftMax, topMin: 2, topMax: sorted[0].top });
-                        zones.push({ leftMin: gutterRight.leftMin, leftMax: gutterRight.leftMax, topMin: 2, topMax: sorted[0].top });
-                    }
-
-                    for (var i = 0; i < sorted.length - 1; i++) {
-                        var gapTop = sorted[i].bottom;
-                        var gapBottom = sorted[i + 1].top;
-                        if (gapBottom - gapTop > 2.5) {
-                            zones.push({ leftMin: gutterLeft.leftMin, leftMax: gutterLeft.leftMax, topMin: gapTop, topMax: gapBottom });
-                            zones.push({ leftMin: gutterRight.leftMin, leftMax: gutterRight.leftMax, topMin: gapTop, topMax: gapBottom });
-                        }
-                    }
-
-                    var last = sorted[sorted.length - 1];
-                    if (last.bottom < 96) {
-                        zones.push({ leftMin: gutterLeft.leftMin, leftMax: gutterLeft.leftMax, topMin: last.bottom, topMax: 97 });
-                        zones.push({ leftMin: gutterRight.leftMin, leftMax: gutterRight.leftMax, topMin: last.bottom, topMax: 97 });
-                    }
-
-                    return zones;
-                }
-
-                function fillZone(zone, quota) {
-                    var bins = Math.max(8, Math.round((zone.topMax - zone.topMin) / 5));
-                    var perBin = Math.max(1, Math.ceil(quota / bins));
-                    for (var b = 0; b < bins && placed.length < targetCount; b++) {
-                        var span = (zone.topMax - zone.topMin) / bins;
-                        var binZone = {
-                            leftMin: zone.leftMin,
-                            leftMax: zone.leftMax,
-                            topMin: zone.topMin + b * span,
-                            topMax: zone.topMin + (b + 1) * span
-                        };
-                        var binCount = 0;
-                        var tries = 0;
-                        while (binCount < perBin && placed.length < targetCount && tries < 50) {
-                            tries++;
-                            if (tryPlace(binZone)) binCount++;
-                        }
-                    }
-                }
-
-                var targetCount = Math.min(48, Math.max(34, Math.round(box.height / 22)));
-
-                var contentLeft = 50;
-                var contentRight = 50;
-                if (exclusions.length) {
-                    contentLeft = Math.min.apply(null, exclusions.map(function(e) { return e.left; }));
-                    contentRight = Math.max.apply(null, exclusions.map(function(e) { return e.right; }));
-                }
-
-                var leftZone = {
-                    leftMin: 1.5,
-                    leftMax: Math.max(3, contentLeft - 2),
-                    topMin: 2,
-                    topMax: 97
-                };
-                var rightZone = {
-                    leftMin: Math.min(96, contentRight + 2),
-                    leftMax: 97.5,
-                    topMin: 2,
-                    topMax: 97
-                };
-
-                var sorted = exclusions.slice().sort(function(a, b) { return a.top - b.top; });
-                var allZones = [leftZone, rightZone].concat(buildGapZones(sorted, leftZone, rightZone));
-                var totalArea = allZones.reduce(function(sum, z) { return sum + zoneArea(z); }, 0) || 1;
-
-                allZones.forEach(function(zone) {
-                    if (zoneArea(zone) <= 0) return;
-                    var quota = Math.max(2, Math.round(targetCount * zoneArea(zone) / totalArea));
-                    fillZone(zone, quota);
-                });
-
-                var attempts = 0;
-                while (placed.length < targetCount && attempts < targetCount * 80) {
-                    attempts++;
-                    tryPlace(allZones[Math.floor(Math.random() * allZones.length)]);
-                }
-            }
-
-            function schedulePlace() {
-                requestAnimationFrame(function() {
-                    requestAnimationFrame(placeLeaves);
-                });
-            }
-
-            var resizeTimer;
-            schedulePlace();
-            window.addEventListener('load', schedulePlace);
-            window.addEventListener('resize', function() {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(placeLeaves, 150);
-            });
         })();
 
         musicBtn.addEventListener('click', function() {
