@@ -1527,7 +1527,13 @@
             transform: rotate(var(--leaf-rot, 0deg));
         }
 
-        .couple-leaf img {
+        .couple-leaf svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .sakura-rating .rating-leaf svg {
             display: block;
             width: 100%;
             height: auto;
@@ -1547,6 +1553,7 @@
             height: auto;
             flex-shrink: 0;
             opacity: 0.5;
+            display: block;
         }
 
         .sakura-rating .rating-leaf.left {
@@ -2393,10 +2400,46 @@
         </section>
 
         <section id="couple">
-            <div class="couple-botanica" id="coupleBotanica" aria-hidden="true"></div>
+            <div class="couple-botanica" id="coupleBotanica" aria-hidden="true">
+                <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+                    <symbol id="sakuraLeafIcon" viewBox="0 0 52 30">
+                        <path d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" fill="#6BCB77"/>
+                        <path d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" stroke="#3FA852" stroke-width="0.65" opacity="0.7"/>
+                        <path d="M8 21 C14 15, 22 9, 36 7" stroke="#2E9B4A" stroke-width="0.8" stroke-linecap="round" opacity="0.65"/>
+                    </symbol>
+                </svg>
+                <div class="couple-leaf" style="left:2%;top:5%;width:22px;opacity:.38;transform:rotate(-32deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:8%;top:11%;width:18px;opacity:.34;transform:rotate(18deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:4%;top:19%;width:24px;opacity:.36;transform:rotate(-48deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:9%;top:27%;width:16px;opacity:.32;transform:rotate(12deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:3%;top:35%;width:20px;opacity:.37;transform:rotate(-22deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:7%;top:43%;width:22px;opacity:.33;transform:rotate(38deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:2%;top:62%;width:18px;opacity:.35;transform:rotate(-55deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:6%;top:70%;width:20px;opacity:.36;transform:rotate(8deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:3%;top:78%;width:17px;opacity:.31;transform:rotate(-18deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:8%;top:86%;width:22px;opacity:.38;transform:rotate(42deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:4%;top:94%;width:19px;opacity:.34;transform:rotate(-40deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:9%;top:16%;width:15px;opacity:.33;transform:rotate(52deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:5%;top:54%;width:16px;opacity:.32;transform:rotate(-12deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:2%;top:47%;width:14px;opacity:.3;transform:rotate(25deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:91%;top:6%;width:22px;opacity:.38;transform:scaleX(-1) rotate(28deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:88%;top:13%;width:17px;opacity:.34;transform:scaleX(-1) rotate(-35deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:93%;top:21%;width:24px;opacity:.36;transform:scaleX(-1) rotate(45deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:89%;top:29%;width:18px;opacity:.33;transform:scaleX(-1) rotate(-20deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:92%;top:37%;width:20px;opacity:.37;transform:scaleX(-1) rotate(32deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:88%;top:45%;width:16px;opacity:.31;transform:scaleX(-1) rotate(-48deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:94%;top:63%;width:22px;opacity:.38;transform:scaleX(-1) rotate(15deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:90%;top:71%;width:18px;opacity:.34;transform:scaleX(-1) rotate(-38deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:93%;top:79%;width:21px;opacity:.36;transform:scaleX(-1) rotate(50deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:89%;top:87%;width:19px;opacity:.33;transform:scaleX(-1) rotate(-15deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:92%;top:95%;width:17px;opacity:.32;transform:scaleX(-1) rotate(22deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:91%;top:17%;width:20px;opacity:.35;transform:scaleX(-1) rotate(-55deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:88%;top:55%;width:15px;opacity:.3;transform:scaleX(-1) rotate(38deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+                <div class="couple-leaf" style="left:94%;top:48%;width:14px;opacity:.31;transform:scaleX(-1) rotate(-25deg)"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></div>
+            </div>
             <p class="eyebrow reveal-up">Kedua Mempelai</p>
             <div class="sakura-rating reveal-up" aria-hidden="true">
-                <img class="rating-leaf left" src="assets/sakura/leaf.svg" alt="" loading="lazy" draggable="false">
+                <span class="rating-leaf left"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></span>
                 <div class="rating-track">
                     <span class="rating-dot"></span>
                     <div class="rating-line">
@@ -2406,7 +2449,7 @@
                     </div>
                     <span class="rating-dot"></span>
                 </div>
-                <img class="rating-leaf right" src="assets/sakura/leaf.svg" alt="" loading="lazy" draggable="false">
+                <span class="rating-leaf right"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></span>
             </div>
 
             <div class="couple-card reveal-up">
@@ -2701,57 +2744,6 @@
                 s.style.setProperty('--op', (0.25 + Math.random() * 0.45).toFixed(2));
                 layer.appendChild(s);
             }
-        })();
-
-        (function initCoupleLeaves() {
-            var layer = document.getElementById('coupleBotanica');
-            if (!layer) return;
-
-            var slots = [
-                { l: 4, t: 5, s: 24, r: -32, o: 0.34 },
-                { l: 14, t: 11, s: 20, r: 18, o: 0.28 },
-                { l: 7, t: 19, s: 26, r: -48, o: 0.3 },
-                { l: 18, t: 26, s: 18, r: 12, o: 0.26 },
-                { l: 5, t: 34, s: 22, r: -22, o: 0.32 },
-                { l: 12, t: 41, s: 28, r: 38, o: 0.27 },
-                { l: 3, t: 49, s: 20, r: -55, o: 0.29 },
-                { l: 16, t: 56, s: 24, r: 8, o: 0.31 },
-                { l: 8, t: 64, s: 19, r: -18, o: 0.25 },
-                { l: 20, t: 71, s: 26, r: 42, o: 0.33 },
-                { l: 6, t: 78, s: 21, r: -40, o: 0.28 },
-                { l: 15, t: 85, s: 23, r: 15, o: 0.3 },
-                { l: 10, t: 92, s: 17, r: -28, o: 0.24 },
-                { l: 19, t: 15, s: 22, r: 52, o: 0.27 },
-                { l: 9, t: 58, s: 25, r: -12, o: 0.29 },
-                { l: 78, t: 6, s: 23, r: 28, o: 0.32, f: 1 },
-                { l: 90, t: 13, s: 19, r: -35, o: 0.26, f: 1 },
-                { l: 82, t: 21, s: 27, r: 45, o: 0.3, f: 1 },
-                { l: 76, t: 28, s: 21, r: -20, o: 0.28, f: 1 },
-                { l: 88, t: 36, s: 24, r: 32, o: 0.31, f: 1 },
-                { l: 80, t: 43, s: 18, r: -48, o: 0.25, f: 1 },
-                { l: 92, t: 50, s: 26, r: 15, o: 0.33, f: 1 },
-                { l: 77, t: 57, s: 20, r: -38, o: 0.27, f: 1 },
-                { l: 86, t: 65, s: 25, r: 50, o: 0.29, f: 1 },
-                { l: 81, t: 72, s: 22, r: -15, o: 0.3, f: 1 },
-                { l: 91, t: 79, s: 19, r: 22, o: 0.26, f: 1 },
-                { l: 79, t: 86, s: 28, r: -42, o: 0.32, f: 1 },
-                { l: 87, t: 93, s: 21, r: 8, o: 0.28, f: 1 },
-                { l: 83, t: 17, s: 23, r: -55, o: 0.27, f: 1 },
-                { l: 76, t: 46, s: 24, r: 38, o: 0.31, f: 1 },
-                { l: 94, t: 61, s: 17, r: -25, o: 0.24, f: 1 }
-            ];
-
-            slots.forEach(function(leaf) {
-                var el = document.createElement('div');
-                el.className = 'couple-leaf';
-                el.style.left = leaf.l + '%';
-                el.style.top = leaf.t + '%';
-                el.style.width = leaf.s + 'px';
-                el.style.opacity = String(leaf.o);
-                el.style.transform = (leaf.f ? 'scaleX(-1) ' : '') + 'rotate(' + leaf.r + 'deg)';
-                el.innerHTML = '<img src="assets/sakura/leaf.svg" alt="" loading="lazy" draggable="false">';
-                layer.appendChild(el);
-            });
         })();
 
         musicBtn.addEventListener('click', function() {
