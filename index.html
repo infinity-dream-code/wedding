@@ -650,20 +650,60 @@
         }
 
         #cover.open .cover-seal-wrap {
-            animation: sealTension 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+            animation: sealStress 0.62s ease 0.08s forwards, sealRecoil 0.28s ease 0.5s forwards;
         }
 
-        @keyframes sealTension {
+        @keyframes sealStress {
             0% {
-                transform: scale(1);
+                transform: scale(1) rotate(0deg);
             }
 
-            55% {
-                transform: scale(1.07);
+            12% {
+                transform: scale(1.02) rotate(0.4deg);
+            }
+
+            24% {
+                transform: scale(1.045) rotate(-0.7deg);
+            }
+
+            36% {
+                transform: scale(1.065) rotate(0.55deg);
+            }
+
+            48% {
+                transform: scale(1.08) rotate(-0.35deg);
+            }
+
+            58% {
+                transform: scale(1.06) rotate(1.1deg);
+            }
+
+            68% {
+                transform: scale(1.03) rotate(-0.9deg);
             }
 
             100% {
-                transform: scale(1.02);
+                transform: scale(1.01) rotate(0deg);
+            }
+        }
+
+        @keyframes sealRecoil {
+
+            0%,
+            100% {
+                transform: scale(1.01) rotate(0deg);
+            }
+
+            18% {
+                transform: scale(1.01) translate(-2px, 1px) rotate(-1.2deg);
+            }
+
+            42% {
+                transform: scale(1.01) translate(2px, -1px) rotate(0.8deg);
+            }
+
+            68% {
+                transform: scale(1.01) translate(-1px, 0.5px) rotate(-0.4deg);
             }
         }
 
@@ -813,6 +853,38 @@
             justify-content: center;
         }
 
+        .cover-seal::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 6;
+            background: radial-gradient(circle, rgba(255, 252, 245, 0.75) 0%, rgba(255, 235, 210, 0.35) 35%, transparent 68%);
+        }
+
+        #cover.open .cover-seal::before {
+            animation: crackFlash 0.38s ease-out 0.48s forwards;
+        }
+
+        @keyframes crackFlash {
+            0% {
+                opacity: 0;
+                transform: scale(0.6);
+            }
+
+            28% {
+                opacity: 0.9;
+                transform: scale(1.05);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(1.35);
+            }
+        }
+
         .cover-seal::after {
             content: '';
             position: absolute;
@@ -839,55 +911,106 @@
                 radial-gradient(circle at 68% 72%, rgba(0, 0, 0, 0.2), transparent 48%),
                 radial-gradient(circle at 50% 55%, #8b2d42 0%, #6B2737 38%, #43141F 100%);
             box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.1), inset 0 -4px 10px rgba(0, 0, 0, 0.3);
+            will-change: transform, opacity;
         }
 
         .seal-l {
             clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+            transform-origin: 52% 46%;
         }
 
         .seal-r {
             clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+            transform-origin: 48% 46%;
         }
 
         #cover.open .seal-l {
-            animation: sealSplitL 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+            animation: sealSplitL 1.05s cubic-bezier(0.55, 0.06, 0.68, 0.19) 0.5s forwards;
         }
 
         #cover.open .seal-r {
-            animation: sealSplitR 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+            animation: sealSplitR 1.05s cubic-bezier(0.55, 0.06, 0.68, 0.19) 0.5s forwards;
         }
 
         @keyframes sealSplitL {
             0% {
-                transform: translate(0, 0) rotate(0deg);
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 1;
+                filter: brightness(1);
+            }
+
+            14% {
+                transform: translate(-1px, 0.5px) rotate(-1deg) scale(0.995);
                 opacity: 1;
             }
 
-            35% {
-                transform: translate(-4px, 0) rotate(-3deg);
+            26% {
+                transform: translate(-4px, 1px) rotate(-3deg) scale(0.985);
                 opacity: 1;
+            }
+
+            38% {
+                transform: translate(-9px, 3px) rotate(-8deg) scale(0.97);
+                opacity: 1;
+                filter: brightness(1.08);
+            }
+
+            55% {
+                transform: translate(-15px, 9px) rotate(-14deg) scale(0.94);
+                opacity: 0.95;
+            }
+
+            78% {
+                transform: translate(-24px, 16px) rotate(-20deg) scale(0.88);
+                opacity: 0.55;
+                filter: brightness(0.85);
             }
 
             100% {
-                transform: translate(-22px, -5px) rotate(-18deg) scale(0.88);
+                transform: translate(-32px, 26px) rotate(-28deg) scale(0.78);
                 opacity: 0;
+                filter: brightness(0.65);
             }
         }
 
         @keyframes sealSplitR {
             0% {
-                transform: translate(0, 0) rotate(0deg);
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 1;
+                filter: brightness(1);
+            }
+
+            14% {
+                transform: translate(1px, 0.5px) rotate(1deg) scale(0.995);
                 opacity: 1;
             }
 
-            35% {
-                transform: translate(4px, 0) rotate(3deg);
+            26% {
+                transform: translate(4px, 1px) rotate(3deg) scale(0.985);
                 opacity: 1;
+            }
+
+            38% {
+                transform: translate(9px, 3px) rotate(8deg) scale(0.97);
+                opacity: 1;
+                filter: brightness(1.08);
+            }
+
+            55% {
+                transform: translate(15px, 9px) rotate(14deg) scale(0.94);
+                opacity: 0.95;
+            }
+
+            78% {
+                transform: translate(24px, 16px) rotate(20deg) scale(0.88);
+                opacity: 0.55;
+                filter: brightness(0.85);
             }
 
             100% {
-                transform: translate(22px, -5px) rotate(18deg) scale(0.88);
+                transform: translate(32px, 26px) rotate(28deg) scale(0.78);
                 opacity: 0;
+                filter: brightness(0.65);
             }
         }
 
@@ -906,9 +1029,9 @@
         }
 
         #cover.open .seal-monogram {
-            transition: opacity 0.3s ease 0.55s, transform 0.3s ease 0.55s;
+            transition: opacity 0.22s ease 0.46s, transform 0.28s cubic-bezier(0.55, 0.06, 0.68, 0.19) 0.46s;
             opacity: 0;
-            transform: scale(1.15);
+            transform: scale(1.2) translateY(2px);
         }
 
         .seal-crack-art {
@@ -938,6 +1061,13 @@
             stroke-dashoffset: 90;
         }
 
+        .seal-crack-path.seal-crack-alt {
+            stroke-width: 0.85;
+            stroke-dasharray: 36;
+            stroke-dashoffset: 36;
+            opacity: 0.75;
+        }
+
         .seal-crack-branch {
             stroke-width: 0.9;
             stroke-dasharray: 14;
@@ -945,17 +1075,61 @@
             opacity: 0;
         }
 
-        #cover.open .seal-crack-path {
-            animation: crackDraw 1s cubic-bezier(0.33, 1, 0.45, 1) 0.1s forwards;
+        #cover.open .seal-crack-path.seal-crack-main {
+            animation: crackDrawMain 0.72s cubic-bezier(0.42, 0, 0.58, 1) 0.12s forwards;
         }
 
-        #cover.open .seal-crack-branch {
-            animation: crackBranch 0.5s ease-out 0.72s forwards;
+        #cover.open .seal-crack-path.seal-crack-alt {
+            animation: crackDrawAlt 0.42s ease-out 0.38s forwards;
         }
 
-        @keyframes crackDraw {
+        #cover.open .seal-crack-branch:nth-of-type(3) {
+            animation: crackBranch 0.34s ease-out 0.52s forwards;
+        }
+
+        #cover.open .seal-crack-branch:nth-of-type(4) {
+            animation: crackBranch 0.3s ease-out 0.6s forwards;
+        }
+
+        #cover.open .seal-crack-branch:nth-of-type(5) {
+            animation: crackBranch 0.28s ease-out 0.66s forwards;
+        }
+
+        #cover.open .seal-crack-branch:nth-of-type(6) {
+            animation: crackBranch 0.24s ease-out 0.72s forwards;
+        }
+
+        @keyframes crackDrawMain {
+            0% {
+                stroke-dashoffset: 90;
+                opacity: 0.2;
+            }
+
+            18% {
+                stroke-dashoffset: 74;
+                opacity: 0.55;
+            }
+
+            42% {
+                stroke-dashoffset: 48;
+                opacity: 0.8;
+            }
+
+            68% {
+                stroke-dashoffset: 18;
+                opacity: 0.95;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+                opacity: 1;
+            }
+        }
+
+        @keyframes crackDrawAlt {
             to {
                 stroke-dashoffset: 0;
+                opacity: 0.9;
             }
         }
 
@@ -966,8 +1140,87 @@
             }
 
             100% {
-                opacity: 0.85;
+                opacity: 0.88;
                 stroke-dashoffset: 0;
+            }
+        }
+
+        .seal-chip {
+            position: absolute;
+            border-radius: 45% 55% 40% 60%;
+            background: linear-gradient(145deg, #8b2d42, #5a1a28);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            opacity: 0;
+            z-index: 6;
+            pointer-events: none;
+        }
+
+        .seal-chip-1 {
+            width: 5px;
+            height: 4px;
+            left: 46%;
+            top: 34%;
+        }
+
+        .seal-chip-2 {
+            width: 4px;
+            height: 3px;
+            left: 38%;
+            top: 52%;
+        }
+
+        .seal-chip-3 {
+            width: 3px;
+            height: 3px;
+            left: 56%;
+            top: 44%;
+        }
+
+        #cover.open .seal-chip-1 {
+            animation: chipFly1 0.75s cubic-bezier(0.22, 0.85, 0.35, 1) 0.52s forwards;
+        }
+
+        #cover.open .seal-chip-2 {
+            animation: chipFly2 0.68s cubic-bezier(0.22, 0.85, 0.35, 1) 0.54s forwards;
+        }
+
+        #cover.open .seal-chip-3 {
+            animation: chipFly3 0.62s cubic-bezier(0.22, 0.85, 0.35, 1) 0.56s forwards;
+        }
+
+        @keyframes chipFly1 {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-16px, 14px) rotate(-140deg);
+            }
+        }
+
+        @keyframes chipFly2 {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-10px, 18px) rotate(95deg);
+            }
+        }
+
+        @keyframes chipFly3 {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(12px, 16px) rotate(-75deg);
             }
         }
 
@@ -2283,10 +2536,16 @@
                             <span class="seal-monogram">W&middot;N</span>
                         </div>
                         <svg class="seal-crack-art" viewBox="0 0 32 80" aria-hidden="true">
-                            <path class="seal-crack-path" d="M16 3 C17.8 14, 13.5 24, 16.2 34 S18.2 52, 15.2 62 S17.5 72, 16 77" />
-                            <path class="seal-crack-branch" d="M16.2 34 L19.5 40" />
-                            <path class="seal-crack-branch" d="M15.8 48 L12.5 53" />
+                            <path class="seal-crack-path seal-crack-main" d="M16 2 C17.2 10, 13.8 18, 16.4 26 C18.6 34, 14.2 42, 16.1 50 C17.4 58, 14.8 66, 16 77" />
+                            <path class="seal-crack-path seal-crack-alt" d="M16.2 26 C18.5 30, 17 36, 19 40" />
+                            <path class="seal-crack-branch" d="M16.4 26 L20 31" />
+                            <path class="seal-crack-branch" d="M16.1 50 L12 55" />
+                            <path class="seal-crack-branch" d="M16.1 50 L19.5 54" />
+                            <path class="seal-crack-branch" d="M16 66 L13.5 70" />
                         </svg>
+                        <span class="seal-chip seal-chip-1" aria-hidden="true"></span>
+                        <span class="seal-chip seal-chip-2" aria-hidden="true"></span>
+                        <span class="seal-chip seal-chip-3" aria-hidden="true"></span>
                     </div>
                 </div>
             </div>
