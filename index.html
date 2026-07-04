@@ -457,49 +457,6 @@
             opacity: 0;
         }
 
-        .cover-corner {
-            position: absolute;
-            width: 68px;
-            height: 68px;
-            z-index: 7;
-            opacity: 0.42;
-            pointer-events: none;
-        }
-
-        .cover-corner svg {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
-        .cover-corner.tl {
-            top: 28px;
-            left: 10px;
-        }
-
-        .cover-corner.tr {
-            top: 28px;
-            right: 10px;
-            transform: scaleX(-1);
-        }
-
-        .cover-corner.bl {
-            bottom: 18px;
-            left: 10px;
-            transform: scaleY(-1);
-        }
-
-        .cover-corner.br {
-            bottom: 18px;
-            right: 10px;
-            transform: scale(-1);
-        }
-
-        #cover.open .cover-corner {
-            transition: opacity 0.45s ease 0.65s;
-            opacity: 0;
-        }
-
         .cover-top .cover-divider {
             width: 120px;
             height: 18px;
@@ -2294,42 +2251,6 @@
             <div class="cover-vignette" aria-hidden="true"></div>
             <div class="cover-shimmer" aria-hidden="true"></div>
             <div class="cover-dust" id="coverDust" aria-hidden="true"></div>
-            <div class="cover-corner tl" aria-hidden="true">
-                <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 62 C3 40, 3 18, 3 3 C 22 3, 44 3, 62 3" stroke="#C9A66B" stroke-width="1.1" stroke-linecap="round" />
-                    <path d="M6 58 C6 38, 6 20, 6 6 C 22 6, 40 6, 58 6" stroke="#B8935A" stroke-width="0.7" stroke-linecap="round" opacity="0.55" />
-                    <circle cx="14" cy="46" r="2.2" fill="#E8D5B5" opacity="0.85" />
-                    <circle cx="22" cy="34" r="1.6" fill="#D4B88A" opacity="0.7" />
-                    <circle cx="10" cy="28" r="1.3" fill="#C9A66B" opacity="0.6" />
-                </svg>
-            </div>
-            <div class="cover-corner tr" aria-hidden="true">
-                <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 62 C3 40, 3 18, 3 3 C 22 3, 44 3, 62 3" stroke="#C9A66B" stroke-width="1.1" stroke-linecap="round" />
-                    <path d="M6 58 C6 38, 6 20, 6 6 C 22 6, 40 6, 58 6" stroke="#B8935A" stroke-width="0.7" stroke-linecap="round" opacity="0.55" />
-                    <circle cx="14" cy="46" r="2.2" fill="#E8D5B5" opacity="0.85" />
-                    <circle cx="22" cy="34" r="1.6" fill="#D4B88A" opacity="0.7" />
-                    <circle cx="10" cy="28" r="1.3" fill="#C9A66B" opacity="0.6" />
-                </svg>
-            </div>
-            <div class="cover-corner bl" aria-hidden="true">
-                <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 62 C3 40, 3 18, 3 3 C 22 3, 44 3, 62 3" stroke="#C9A66B" stroke-width="1.1" stroke-linecap="round" />
-                    <path d="M6 58 C6 38, 6 20, 6 6 C 22 6, 40 6, 58 6" stroke="#B8935A" stroke-width="0.7" stroke-linecap="round" opacity="0.55" />
-                    <circle cx="14" cy="46" r="2.2" fill="#E8D5B5" opacity="0.85" />
-                    <circle cx="22" cy="34" r="1.6" fill="#D4B88A" opacity="0.7" />
-                    <circle cx="10" cy="28" r="1.3" fill="#C9A66B" opacity="0.6" />
-                </svg>
-            </div>
-            <div class="cover-corner br" aria-hidden="true">
-                <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 62 C3 40, 3 18, 3 3 C 22 3, 44 3, 62 3" stroke="#C9A66B" stroke-width="1.1" stroke-linecap="round" />
-                    <path d="M6 58 C6 38, 6 20, 6 6 C 22 6, 40 6, 58 6" stroke="#B8935A" stroke-width="0.7" stroke-linecap="round" opacity="0.55" />
-                    <circle cx="14" cy="46" r="2.2" fill="#E8D5B5" opacity="0.85" />
-                    <circle cx="22" cy="34" r="1.6" fill="#D4B88A" opacity="0.7" />
-                    <circle cx="10" cy="28" r="1.3" fill="#C9A66B" opacity="0.6" />
-                </svg>
-            </div>
 
             <div class="cover-content">
                 <div class="cover-top cover-fade">
@@ -2788,9 +2709,8 @@
             if (!layer || !section) return;
 
             const LEAF_ASPECT = 30 / 52;
-            const COUNT = 26;
-            const PAD = 36;
-            const MIN_GAP = 22;
+            const PAD = 38;
+            const MIN_GAP = 14;
 
             function getExclusions() {
                 const box = section.getBoundingClientRect();
@@ -2847,7 +2767,7 @@
                 const placed = [];
 
                 function tryPlace(zone) {
-                    const size = 16 + Math.random() * 20;
+                    const size = 14 + Math.random() * 18;
                     const wPct = (size / box.width) * 100;
                     const hPct = ((size * LEAF_ASPECT) / box.height) * 100;
                     const maxLeft = zone.leftMax - wPct;
@@ -2859,10 +2779,63 @@
                     if (overlaps(left, top, wPct, hPct, exclusions)) return false;
                     if (tooCloseToOthers(left, top, wPct, hPct, placed, box)) return false;
 
-                    spawnLeaf(left, top, size, -60 + Math.random() * 120, 0.18 + Math.random() * 0.28, Math.random() > 0.45);
+                    spawnLeaf(left, top, size, -70 + Math.random() * 140, 0.16 + Math.random() * 0.3, Math.random() > 0.4);
                     placed.push({ left: left, top: top, wPct: wPct, hPct: hPct });
                     return true;
                 }
+
+                function zoneArea(zone) {
+                    return Math.max(0, zone.leftMax - zone.leftMin) * Math.max(0, zone.topMax - zone.topMin);
+                }
+
+                function buildGapZones(sorted, gutterLeft, gutterRight) {
+                    const zones = [];
+                    if (!sorted.length) return zones;
+
+                    if (sorted[0].top > 4) {
+                        zones.push({ leftMin: gutterLeft.leftMin, leftMax: gutterLeft.leftMax, topMin: 2, topMax: sorted[0].top });
+                        zones.push({ leftMin: gutterRight.leftMin, leftMax: gutterRight.leftMax, topMin: 2, topMax: sorted[0].top });
+                    }
+
+                    for (var i = 0; i < sorted.length - 1; i++) {
+                        var gapTop = sorted[i].bottom;
+                        var gapBottom = sorted[i + 1].top;
+                        if (gapBottom - gapTop > 2.5) {
+                            zones.push({ leftMin: gutterLeft.leftMin, leftMax: gutterLeft.leftMax, topMin: gapTop, topMax: gapBottom });
+                            zones.push({ leftMin: gutterRight.leftMin, leftMax: gutterRight.leftMax, topMin: gapTop, topMax: gapBottom });
+                        }
+                    }
+
+                    var last = sorted[sorted.length - 1];
+                    if (last.bottom < 96) {
+                        zones.push({ leftMin: gutterLeft.leftMin, leftMax: gutterLeft.leftMax, topMin: last.bottom, topMax: 97 });
+                        zones.push({ leftMin: gutterRight.leftMin, leftMax: gutterRight.leftMax, topMin: last.bottom, topMax: 97 });
+                    }
+
+                    return zones;
+                }
+
+                function fillZone(zone, quota) {
+                    var bins = Math.max(8, Math.round((zone.topMax - zone.topMin) / 5));
+                    var perBin = Math.max(1, Math.ceil(quota / bins));
+                    for (var b = 0; b < bins && placed.length < targetCount; b++) {
+                        var span = (zone.topMax - zone.topMin) / bins;
+                        var binZone = {
+                            leftMin: zone.leftMin,
+                            leftMax: zone.leftMax,
+                            topMin: zone.topMin + b * span,
+                            topMax: zone.topMin + (b + 1) * span
+                        };
+                        var binCount = 0;
+                        var tries = 0;
+                        while (binCount < perBin && placed.length < targetCount && tries < 50) {
+                            tries++;
+                            if (tryPlace(binZone)) binCount++;
+                        }
+                    }
+                }
+
+                var targetCount = Math.min(48, Math.max(34, Math.round(box.height / 22)));
 
                 var contentLeft = 50;
                 var contentRight = 50;
@@ -2884,33 +2857,20 @@
                     topMax: 97
                 };
 
-                function fillZone(zone, quota) {
-                    var bins = 12;
-                    var perBin = Math.ceil(quota / bins);
-                    for (var b = 0; b < bins && placed.length < COUNT; b++) {
-                        var span = (zone.topMax - zone.topMin) / bins;
-                        var binZone = {
-                            leftMin: zone.leftMin,
-                            leftMax: zone.leftMax,
-                            topMin: zone.topMin + b * span,
-                            topMax: zone.topMin + (b + 1) * span
-                        };
-                        var binCount = 0;
-                        var tries = 0;
-                        while (binCount < perBin && placed.length < COUNT && tries < 40) {
-                            tries++;
-                            if (tryPlace(binZone)) binCount++;
-                        }
-                    }
-                }
+                var sorted = exclusions.slice().sort(function(a, b) { return a.top - b.top; });
+                var allZones = [leftZone, rightZone].concat(buildGapZones(sorted, leftZone, rightZone));
+                var totalArea = allZones.reduce(function(sum, z) { return sum + zoneArea(z); }, 0) || 1;
 
-                fillZone(leftZone, Math.ceil(COUNT / 2));
-                fillZone(rightZone, Math.ceil(COUNT / 2));
+                allZones.forEach(function(zone) {
+                    if (zoneArea(zone) <= 0) return;
+                    var quota = Math.max(2, Math.round(targetCount * zoneArea(zone) / totalArea));
+                    fillZone(zone, quota);
+                });
 
                 var attempts = 0;
-                while (placed.length < COUNT && attempts < COUNT * 60) {
+                while (placed.length < targetCount && attempts < targetCount * 80) {
                     attempts++;
-                    tryPlace(Math.random() > 0.5 ? leftZone : rightZone);
+                    tryPlace(allZones[Math.floor(Math.random() * allZones.length)]);
                 }
             }
 
