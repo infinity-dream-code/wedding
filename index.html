@@ -1246,45 +1246,6 @@
             color: var(--wine);
         }
 
-        #hero .hero-venue {
-            font-family: 'Jost', sans-serif;
-            font-size: 0.68rem;
-            letter-spacing: 3.5px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-top: 8px;
-        }
-
-        .hero-monogram {
-            width: 74px;
-            height: 74px;
-            margin: 26px auto 0;
-            border: 1px solid var(--gold-line);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: rgba(255, 255, 255, 0.35);
-        }
-
-        .hero-monogram::before {
-            content: '';
-            position: absolute;
-            inset: 5px;
-            border: 1px solid var(--gold-soft);
-            border-radius: 50%;
-        }
-
-        .hero-monogram span {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.35rem;
-            color: var(--wine);
-            position: relative;
-            z-index: 1;
-        }
-
         .hero-invite {
             font-size: 0.98rem;
             color: var(--ink-soft);
@@ -1292,36 +1253,6 @@
             margin: 28px auto 12px;
             font-style: italic;
             max-width: 300px;
-        }
-
-        .hero-countdown {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin: 24px 0 0;
-        }
-
-        .hero-countdown .box {
-            background: rgba(255, 255, 255, 0.55);
-            border: 1px solid var(--gold-soft);
-            padding: 10px 4px;
-            width: 58px;
-        }
-
-        .hero-countdown .num {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: var(--wine);
-            display: block;
-        }
-
-        .hero-countdown .lbl {
-            font-family: 'Jost', sans-serif;
-            font-weight: 400;
-            font-size: 0.5rem;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            color: var(--ink-soft);
         }
 
         .scroll-hint {
@@ -1606,11 +1537,57 @@
             line-height: 1.6;
         }
 
+        .gallery-wrap {
+            margin-top: 24px;
+        }
+
+        .gallery-feature {
+            max-width: 268px;
+            margin: 0 auto 20px;
+        }
+
+        .gallery-feature-frame {
+            position: relative;
+            border: 1px solid var(--gold);
+            padding: 8px;
+            background: var(--ivory);
+            border-radius: 6px 6px 4px 4px;
+            box-shadow: 0 8px 26px rgba(67, 20, 31, 0.13);
+        }
+
+        .gallery-feature-frame::before {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border: 1px solid var(--gold-soft);
+            border-radius: 3px 3px 2px 2px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .gallery-feature-frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            box-shadow: inset 0 0 20px rgba(67, 20, 31, 0.08);
+            border-radius: 6px 6px 4px 4px;
+        }
+
+        .gallery-feature-frame img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            object-position: center top;
+            border-radius: 2px;
+        }
+
         .gallery {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 5px;
-            margin-top: 24px;
         }
 
         .gallery .tile {
@@ -2189,20 +2166,8 @@
                 </div>
                 <h1 class="names reveal-zoom stagger-3">Waguri<span class="amp-small">&amp;</span>Nico</h1>
                 <p class="date reveal-up stagger-4">SABTU · 25 JULI 2026</p>
-                <p class="hero-venue reveal-up stagger-4">Semarang · Jawa Tengah</p>
-
-                <div class="hero-monogram reveal-zoom stagger-4" aria-hidden="true">
-                    <span>W · N</span>
-                </div>
 
                 <p class="hero-invite reveal-up">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
-
-                <div class="hero-countdown reveal-zoom">
-                    <div class="box"><span class="num cd-d">00</span><span class="lbl">Hari</span></div>
-                    <div class="box"><span class="num cd-h">00</span><span class="lbl">Jam</span></div>
-                    <div class="box"><span class="num cd-m">00</span><span class="lbl">Menit</span></div>
-                    <div class="box"><span class="num cd-s">00</span><span class="lbl">Detik</span></div>
-                </div>
             </div>
 
             <a href="#couple" class="scroll-hint reveal-up" aria-label="Gulir ke bawah">
@@ -2255,11 +2220,11 @@
             <p class="eyebrow reveal-up">Save The Date</p>
             <h2 class="reveal-up italic" style="font-size:2.1rem;">Waktu &amp; Tempat</h2>
 
-            <div class="countdown reveal-zoom" id="countdown">
-                <div class="box"><span class="num cd-d">00</span><span class="lbl">Hari</span></div>
-                <div class="box"><span class="num cd-h">00</span><span class="lbl">Jam</span></div>
-                <div class="box"><span class="num cd-m">00</span><span class="lbl">Menit</span></div>
-                <div class="box"><span class="num cd-s">00</span><span class="lbl">Detik</span></div>
+            <div class="countdown reveal-zoom" id="eventCountdown">
+                <div class="box"><span class="num" data-cd="d">00</span><span class="lbl">Hari</span></div>
+                <div class="box"><span class="num" data-cd="h">00</span><span class="lbl">Jam</span></div>
+                <div class="box"><span class="num" data-cd="m">00</span><span class="lbl">Menit</span></div>
+                <div class="box"><span class="num" data-cd="s">00</span><span class="lbl">Detik</span></div>
             </div>
 
             <div class="event-card reveal-up">
@@ -2306,7 +2271,13 @@
                 </div>
             </div>
 
-            <div class="gallery reveal-up">
+            <div class="gallery-wrap reveal-up">
+                <div class="gallery-feature">
+                    <div class="gallery-feature-frame">
+                        <img src="https://i.pinimg.com/736x/a0/70/2f/a0702f036c877ca45d2c5c2514e3b676.jpg" alt="Waguri &amp; Nico">
+                    </div>
+                </div>
+                <div class="gallery">
                 <div class="tile tile-photo">
                     <img src="https://i.pinimg.com/736x/55/20/9e/55209e62205d63d52198ab5d25891f45.jpg" alt="Waguri &amp; Nico">
                 </div>
@@ -2324,6 +2295,7 @@
                 </div>
                 <div class="tile tile-photo">
                     <img src="https://i.pinimg.com/736x/89/24/24/892424d806911c73ee3edafdb3c30ad0.jpg" alt="Waguri &amp; Nico">
+                </div>
                 </div>
             </div>
         </section>
@@ -2625,6 +2597,8 @@
         const targetDate = new Date('2026-07-25T10:00:00+07:00').getTime();
 
         function updateCountdown() {
+            const root = document.getElementById('eventCountdown');
+            if (!root) return;
             const now = new Date().getTime();
             const diff = targetDate - now;
             if (diff <= 0) {
@@ -2634,10 +2608,11 @@
             const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((diff % (1000 * 60)) / 1000);
-            document.querySelectorAll('.cd-d').forEach(el => el.textContent = String(d).padStart(2, '0'));
-            document.querySelectorAll('.cd-h').forEach(el => el.textContent = String(h).padStart(2, '0'));
-            document.querySelectorAll('.cd-m').forEach(el => el.textContent = String(m).padStart(2, '0'));
-            document.querySelectorAll('.cd-s').forEach(el => el.textContent = String(s).padStart(2, '0'));
+            const map = { d: d, h: h, m: m, s: s };
+            Object.keys(map).forEach(function(key) {
+                const el = root.querySelector('[data-cd="' + key + '"]');
+                if (el) el.textContent = String(map[key]).padStart(2, '0');
+            });
         }
         updateCountdown();
         setInterval(updateCountdown, 1000);
