@@ -691,11 +691,11 @@
         }
 
         #cover.open .seal-crack-path {
-            animation: crackDraw 0.55s cubic-bezier(0.33, 1, 0.45, 1) 0.1s forwards;
+            animation: crackDraw 0.85s cubic-bezier(0.33, 1, 0.45, 1) 0.1s forwards;
         }
 
         #cover.open .seal-crack-branch {
-            animation: crackBranch 0.35s ease-out 0.48s forwards;
+            animation: crackBranch 0.65s ease-out 0.78s forwards;
         }
 
         @keyframes crackDraw {
@@ -2234,7 +2234,12 @@
                 syncButterflyLayer();
                 startPetals();
                 startButterflies();
+                if (navUserIdx === null) updateNavFromScroll();
             }, 3200);
+
+            navScrollEnabled = true;
+            setNavIndex(0, false);
+            requestAnimationFrame(updateNavFromScroll);
         });
         document.body.style.overflow = 'hidden';
 
@@ -2545,6 +2550,7 @@
         const NAV_DOT = 20;
         let activeNavIdx = 0;
         let navUserIdx = null;
+        let navScrollEnabled = cover.classList.contains('open');
         let navScrollTimer = null;
         let navClickMaxTimer = null;
 
@@ -2582,35 +2588,37 @@
         }
 
         function getNavIndexFromScroll() {
+            const scrollY = window.scrollY;
             const vh = window.innerHeight;
-            const marker = vh * 0.35;
+            const heroEl = navScrollZones[0].el;
 
-            for (let i = navScrollZones.length - 1; i >= 0; i--) {
-                const zone = navScrollZones[i];
-                if (!zone.el) continue;
-                const rect = zone.el.getBoundingClientRect();
-                if (rect.top <= marker && rect.bottom > marker) {
-                    return zone.idx;
+            if (scrollY < 80) {
+                return 0;
+            }
+
+            if (heroEl) {
+                const heroRect = heroEl.getBoundingClientRect();
+                if (heroRect.top > -32 && scrollY < heroEl.offsetHeight * 0.6) {
+                    return 0;
                 }
             }
 
-            let bestIdx = activeNavIdx;
-            let bestDist = Infinity;
+            const probe = scrollY + vh * 0.32;
+            let idx = 0;
+
             navScrollZones.forEach(function(zone) {
                 if (!zone.el) return;
-                const rect = zone.el.getBoundingClientRect();
-                const center = (rect.top + rect.bottom) / 2;
-                const dist = Math.abs(center - marker);
-                if (dist < bestDist) {
-                    bestDist = dist;
-                    bestIdx = zone.idx;
+                const top = scrollY + zone.el.getBoundingClientRect().top;
+                if (probe >= top) {
+                    idx = zone.idx;
                 }
             });
-            return bestIdx;
+
+            return idx;
         }
 
         function updateNavFromScroll() {
-            if (!navBar || !navItems.length) return;
+            if (!navBar || !navItems.length || !navScrollEnabled) return;
             const idx = getNavIndexFromScroll();
             if (idx !== activeNavIdx) {
                 setNavIndex(idx, true);
@@ -2618,6 +2626,7 @@
         }
 
         function afterNavScroll() {
+            if (!navScrollEnabled) return;
             if (navUserIdx !== null) {
                 if (getNavIndexFromScroll() === navUserIdx) {
                     navUserIdx = null;
@@ -2660,10 +2669,15 @@
         }
         window.addEventListener('resize', repositionNavIndicator);
         window.addEventListener('hashchange', syncNavFromHash);
+        window.addEventListener('load', function() {
+            if (navScrollEnabled && navUserIdx === null) {
+                updateNavFromScroll();
+            }
+        });
         setNavIndex(0, false);
         if (location.hash) {
             syncNavFromHash();
-        } else {
+        } else if (navScrollEnabled) {
             requestAnimationFrame(updateNavFromScroll);
         }
     </script>
