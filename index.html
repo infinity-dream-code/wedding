@@ -1172,14 +1172,20 @@
                 var(--ivory);
         }
 
+        .hero-names-block {
+            position: relative;
+            margin-top: 6px;
+            padding: 2px 0;
+        }
+
         #hero .hero-watermark {
             position: absolute;
-            top: 50%;
+            top: 36%;
             left: 50%;
-            transform: translate(-50%, -52%);
+            transform: translate(-50%, -50%);
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: clamp(7rem, 28vw, 10rem);
+            font-size: clamp(3.6rem, 15vw, 5.4rem);
             color: var(--wine);
             opacity: 0.035;
             pointer-events: none;
@@ -1187,6 +1193,12 @@
             line-height: 1;
             white-space: nowrap;
             user-select: none;
+        }
+
+        .hero-names-block .names,
+        .hero-names-block .date {
+            position: relative;
+            z-index: 1;
         }
 
         .hero-frame {
@@ -1362,7 +1374,7 @@
         #hero .names {
             font-style: italic;
             font-size: 3.4rem;
-            margin: 22px 0 8px;
+            margin: 18px 0 22px;
             line-height: 1.05;
         }
 
@@ -2290,8 +2302,6 @@
         </audio>
 
         <section id="hero">
-            <div class="hero-watermark" aria-hidden="true">&amp;</div>
-
             <div class="hero-frame reveal-zoom" aria-hidden="true">
                 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
                     <defs>
@@ -2364,8 +2374,11 @@
                     <p class="quote">"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan untukmu dari jenismu sendiri, agar kamu merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."</p>
                     <p class="quote-src">QS. Ar-Rum : 21</p>
                 </div>
-                <h1 class="names reveal-zoom stagger-3">Waguri<span class="amp-small">&amp;</span>Nico</h1>
-                <p class="date reveal-up stagger-4">SABTU · 25 JULI 2026</p>
+                <div class="hero-names-block">
+                    <div class="hero-watermark" aria-hidden="true">&amp;</div>
+                    <h1 class="names reveal-zoom stagger-3">Waguri<span class="amp-small">&amp;</span>Nico</h1>
+                    <p class="date reveal-up stagger-4">SABTU · 25 JULI 2026</p>
+                </div>
 
                 <p class="hero-invite reveal-up">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
             </div>
