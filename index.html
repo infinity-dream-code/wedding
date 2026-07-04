@@ -2393,54 +2393,7 @@
         </section>
 
         <section id="couple">
-            <div class="couple-botanica" id="coupleBotanica" aria-hidden="true">
-                <?php
-                $coupleLeafSlots = [
-                    ['l' => 4, 't' => 5, 's' => 24, 'r' => -32, 'o' => 0.34],
-                    ['l' => 14, 't' => 11, 's' => 20, 'r' => 18, 'o' => 0.28],
-                    ['l' => 7, 't' => 19, 's' => 26, 'r' => -48, 'o' => 0.3],
-                    ['l' => 18, 't' => 26, 's' => 18, 'r' => 12, 'o' => 0.26],
-                    ['l' => 5, 't' => 34, 's' => 22, 'r' => -22, 'o' => 0.32],
-                    ['l' => 12, 't' => 41, 's' => 28, 'r' => 38, 'o' => 0.27],
-                    ['l' => 3, 't' => 49, 's' => 20, 'r' => -55, 'o' => 0.29],
-                    ['l' => 16, 't' => 56, 's' => 24, 'r' => 8, 'o' => 0.31],
-                    ['l' => 8, 't' => 64, 's' => 19, 'r' => -18, 'o' => 0.25],
-                    ['l' => 20, 't' => 71, 's' => 26, 'r' => 42, 'o' => 0.33],
-                    ['l' => 6, 't' => 78, 's' => 21, 'r' => -40, 'o' => 0.28],
-                    ['l' => 15, 't' => 85, 's' => 23, 'r' => 15, 'o' => 0.3],
-                    ['l' => 10, 't' => 92, 's' => 17, 'r' => -28, 'o' => 0.24],
-                    ['l' => 19, 't' => 15, 's' => 22, 'r' => 52, 'o' => 0.27],
-                    ['l' => 9, 't' => 58, 's' => 25, 'r' => -12, 'o' => 0.29],
-                    ['l' => 78, 't' => 6, 's' => 23, 'r' => 28, 'o' => 0.32, 'f' => 1],
-                    ['l' => 90, 't' => 13, 's' => 19, 'r' => -35, 'o' => 0.26, 'f' => 1],
-                    ['l' => 82, 't' => 21, 's' => 27, 'r' => 45, 'o' => 0.3, 'f' => 1],
-                    ['l' => 76, 't' => 28, 's' => 21, 'r' => -20, 'o' => 0.28, 'f' => 1],
-                    ['l' => 88, 't' => 36, 's' => 24, 'r' => 32, 'o' => 0.31, 'f' => 1],
-                    ['l' => 80, 't' => 43, 's' => 18, 'r' => -48, 'o' => 0.25, 'f' => 1],
-                    ['l' => 92, 't' => 50, 's' => 26, 'r' => 15, 'o' => 0.33, 'f' => 1],
-                    ['l' => 77, 't' => 57, 's' => 20, 'r' => -38, 'o' => 0.27, 'f' => 1],
-                    ['l' => 86, 't' => 65, 's' => 25, 'r' => 50, 'o' => 0.29, 'f' => 1],
-                    ['l' => 81, 't' => 72, 's' => 22, 'r' => -15, 'o' => 0.3, 'f' => 1],
-                    ['l' => 91, 't' => 79, 's' => 19, 'r' => 22, 'o' => 0.26, 'f' => 1],
-                    ['l' => 79, 't' => 86, 's' => 28, 'r' => -42, 'o' => 0.32, 'f' => 1],
-                    ['l' => 87, 't' => 93, 's' => 21, 'r' => 8, 'o' => 0.28, 'f' => 1],
-                    ['l' => 83, 't' => 17, 's' => 23, 'r' => -55, 'o' => 0.27, 'f' => 1],
-                    ['l' => 76, 't' => 46, 's' => 24, 'r' => 38, 'o' => 0.31, 'f' => 1],
-                    ['l' => 94, 't' => 61, 's' => 17, 'r' => -25, 'o' => 0.24, 'f' => 1],
-                ];
-                foreach ($coupleLeafSlots as $leaf) :
-                    $flip = !empty($leaf['f']) ? 'scaleX(-1) ' : '';
-                    $rot = $leaf['r'];
-                    $op = $leaf['o'];
-                    $size = $leaf['s'];
-                    $left = $leaf['l'];
-                    $top = $leaf['t'];
-                ?>
-                <div class="couple-leaf" style="left:<?= $left ?>%;top:<?= $top ?>%;width:<?= $size ?>px;opacity:<?= $op ?>;transform:<?= $flip ?>rotate(<?= $rot ?>deg);">
-                    <img src="assets/sakura/leaf.svg" alt="" loading="lazy" draggable="false">
-                </div>
-                <?php endforeach; ?>
-            </div>
+            <div class="couple-botanica" id="coupleBotanica" aria-hidden="true"></div>
             <p class="eyebrow reveal-up">Kedua Mempelai</p>
             <div class="sakura-rating reveal-up" aria-hidden="true">
                 <img class="rating-leaf left" src="assets/sakura/leaf.svg" alt="" loading="lazy" draggable="false">
@@ -2748,6 +2701,57 @@
                 s.style.setProperty('--op', (0.25 + Math.random() * 0.45).toFixed(2));
                 layer.appendChild(s);
             }
+        })();
+
+        (function initCoupleLeaves() {
+            var layer = document.getElementById('coupleBotanica');
+            if (!layer) return;
+
+            var slots = [
+                { l: 4, t: 5, s: 24, r: -32, o: 0.34 },
+                { l: 14, t: 11, s: 20, r: 18, o: 0.28 },
+                { l: 7, t: 19, s: 26, r: -48, o: 0.3 },
+                { l: 18, t: 26, s: 18, r: 12, o: 0.26 },
+                { l: 5, t: 34, s: 22, r: -22, o: 0.32 },
+                { l: 12, t: 41, s: 28, r: 38, o: 0.27 },
+                { l: 3, t: 49, s: 20, r: -55, o: 0.29 },
+                { l: 16, t: 56, s: 24, r: 8, o: 0.31 },
+                { l: 8, t: 64, s: 19, r: -18, o: 0.25 },
+                { l: 20, t: 71, s: 26, r: 42, o: 0.33 },
+                { l: 6, t: 78, s: 21, r: -40, o: 0.28 },
+                { l: 15, t: 85, s: 23, r: 15, o: 0.3 },
+                { l: 10, t: 92, s: 17, r: -28, o: 0.24 },
+                { l: 19, t: 15, s: 22, r: 52, o: 0.27 },
+                { l: 9, t: 58, s: 25, r: -12, o: 0.29 },
+                { l: 78, t: 6, s: 23, r: 28, o: 0.32, f: 1 },
+                { l: 90, t: 13, s: 19, r: -35, o: 0.26, f: 1 },
+                { l: 82, t: 21, s: 27, r: 45, o: 0.3, f: 1 },
+                { l: 76, t: 28, s: 21, r: -20, o: 0.28, f: 1 },
+                { l: 88, t: 36, s: 24, r: 32, o: 0.31, f: 1 },
+                { l: 80, t: 43, s: 18, r: -48, o: 0.25, f: 1 },
+                { l: 92, t: 50, s: 26, r: 15, o: 0.33, f: 1 },
+                { l: 77, t: 57, s: 20, r: -38, o: 0.27, f: 1 },
+                { l: 86, t: 65, s: 25, r: 50, o: 0.29, f: 1 },
+                { l: 81, t: 72, s: 22, r: -15, o: 0.3, f: 1 },
+                { l: 91, t: 79, s: 19, r: 22, o: 0.26, f: 1 },
+                { l: 79, t: 86, s: 28, r: -42, o: 0.32, f: 1 },
+                { l: 87, t: 93, s: 21, r: 8, o: 0.28, f: 1 },
+                { l: 83, t: 17, s: 23, r: -55, o: 0.27, f: 1 },
+                { l: 76, t: 46, s: 24, r: 38, o: 0.31, f: 1 },
+                { l: 94, t: 61, s: 17, r: -25, o: 0.24, f: 1 }
+            ];
+
+            slots.forEach(function(leaf) {
+                var el = document.createElement('div');
+                el.className = 'couple-leaf';
+                el.style.left = leaf.l + '%';
+                el.style.top = leaf.t + '%';
+                el.style.width = leaf.s + 'px';
+                el.style.opacity = String(leaf.o);
+                el.style.transform = (leaf.f ? 'scaleX(-1) ' : '') + 'rotate(' + leaf.r + 'deg)';
+                el.innerHTML = '<img src="assets/sakura/leaf.svg" alt="" loading="lazy" draggable="false">';
+                layer.appendChild(el);
+            });
         })();
 
         musicBtn.addEventListener('click', function() {
