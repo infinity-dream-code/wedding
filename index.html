@@ -289,6 +289,9 @@
 
         #cover.revealed {
             visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            display: none !important;
         }
 
         .cover-backlight {
@@ -650,7 +653,29 @@
         }
 
         #cover.open .cover-seal-wrap {
-            animation: sealStress 0.62s ease 0.08s forwards, sealRecoil 0.28s ease 0.5s forwards;
+            animation: sealStress 1.1s ease 0.1s forwards, sealRecoil 0.35s ease 1.05s forwards, sealVanishOnLight 0.2s ease 1.24s forwards;
+            filter: none;
+        }
+
+        @keyframes sealVanishOnLight {
+            0% {
+                transform: scale(1.01);
+                opacity: 1;
+                filter: brightness(1);
+            }
+
+            40% {
+                transform: scale(1.1);
+                opacity: 0.7;
+                filter: brightness(1.5);
+            }
+
+            100% {
+                transform: scale(1.16);
+                opacity: 0;
+                visibility: hidden;
+                filter: brightness(1.9);
+            }
         }
 
         @keyframes sealStress {
@@ -729,8 +754,14 @@
         }
 
         #cover.open .cover-seal-stage {
-            transition: opacity 0.35s ease 1.2s;
-            opacity: 0;
+            animation: sealStageHide 0.12s linear 1.28s forwards;
+        }
+
+        @keyframes sealStageHide {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
         }
 
         .cover-seal-glow {
@@ -748,7 +779,7 @@
         }
 
         #cover.open .cover-seal-glow {
-            animation: divineGlow 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards;
+            animation: divineGlow 1.6s cubic-bezier(0.22, 1, 0.36, 1) 1.3s forwards;
         }
 
         @keyframes divineGlow {
@@ -788,7 +819,7 @@
         }
 
         #cover.open .cover-reveal-light {
-            animation: revealWash 2.1s cubic-bezier(0.4, 0, 0.2, 1) 0.55s forwards;
+            animation: revealWash 2.1s cubic-bezier(0.4, 0, 0.2, 1) 1.3s forwards;
         }
 
         @keyframes revealWash {
@@ -823,7 +854,7 @@
         }
 
         #cover.open .cover-flash {
-            animation: flashBurst 1.3s cubic-bezier(0.4, 0, 0.2, 1) 0.55s forwards;
+            animation: flashBurst 1.3s cubic-bezier(0.4, 0, 0.2, 1) 1.3s forwards;
         }
 
         @keyframes flashBurst {
@@ -865,7 +896,7 @@
         }
 
         #cover.open .cover-seal::before {
-            animation: crackFlash 0.38s ease-out 0.48s forwards;
+            animation: crackFlash 0.55s ease-out 1.25s forwards;
         }
 
         @keyframes crackFlash {
@@ -886,20 +917,22 @@
         }
 
         .cover-seal::after {
+            display: none;
+        }
+
+        .seal-half::after {
             content: '';
             position: absolute;
             inset: 0;
             border-radius: 50%;
             border: 2px solid rgba(184, 147, 90, 0.7);
             box-shadow: 0 0 0 1px rgba(232, 213, 181, 0.15);
-            z-index: 4;
             pointer-events: none;
         }
 
-        #cover.open .cover-seal::after {
-            transition: opacity 0.4s ease 0.55s, transform 0.4s ease 0.55s;
+        #cover.open .seal-half::after {
             opacity: 0;
-            transform: scale(1.15);
+            transition: opacity 0.15s ease 1.18s;
         }
 
         .seal-half {
@@ -924,94 +957,16 @@
             transform-origin: 48% 46%;
         }
 
-        #cover.open .seal-l {
-            animation: sealSplitL 1.05s cubic-bezier(0.55, 0.06, 0.68, 0.19) 0.5s forwards;
-        }
-
+        #cover.open .seal-l,
         #cover.open .seal-r {
-            animation: sealSplitR 1.05s cubic-bezier(0.55, 0.06, 0.68, 0.19) 0.5s forwards;
+            animation: none;
         }
 
-        @keyframes sealSplitL {
-            0% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-                opacity: 1;
-                filter: brightness(1);
-            }
-
-            14% {
-                transform: translate(-1px, 0.5px) rotate(-1deg) scale(0.995);
-                opacity: 1;
-            }
-
-            26% {
-                transform: translate(-4px, 1px) rotate(-3deg) scale(0.985);
-                opacity: 1;
-            }
-
-            38% {
-                transform: translate(-9px, 3px) rotate(-8deg) scale(0.97);
-                opacity: 1;
-                filter: brightness(1.08);
-            }
-
-            55% {
-                transform: translate(-15px, 9px) rotate(-14deg) scale(0.94);
-                opacity: 0.95;
-            }
-
-            78% {
-                transform: translate(-24px, 16px) rotate(-20deg) scale(0.88);
-                opacity: 0.55;
-                filter: brightness(0.85);
-            }
-
-            100% {
-                transform: translate(-32px, 26px) rotate(-28deg) scale(0.78);
-                opacity: 0;
-                filter: brightness(0.65);
-            }
-        }
-
-        @keyframes sealSplitR {
-            0% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-                opacity: 1;
-                filter: brightness(1);
-            }
-
-            14% {
-                transform: translate(1px, 0.5px) rotate(1deg) scale(0.995);
-                opacity: 1;
-            }
-
-            26% {
-                transform: translate(4px, 1px) rotate(3deg) scale(0.985);
-                opacity: 1;
-            }
-
-            38% {
-                transform: translate(9px, 3px) rotate(8deg) scale(0.97);
-                opacity: 1;
-                filter: brightness(1.08);
-            }
-
-            55% {
-                transform: translate(15px, 9px) rotate(14deg) scale(0.94);
-                opacity: 0.95;
-            }
-
-            78% {
-                transform: translate(24px, 16px) rotate(20deg) scale(0.88);
-                opacity: 0.55;
-                filter: brightness(0.85);
-            }
-
-            100% {
-                transform: translate(32px, 26px) rotate(28deg) scale(0.78);
-                opacity: 0;
-                filter: brightness(0.65);
-            }
+        #cover.seal-gone .cover-seal-layer,
+        #cover.open .cover-seal-layer.is-gone {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
         }
 
         .seal-monogram {
@@ -1029,9 +984,9 @@
         }
 
         #cover.open .seal-monogram {
-            transition: opacity 0.22s ease 0.46s, transform 0.28s cubic-bezier(0.55, 0.06, 0.68, 0.19) 0.46s;
+            transition: opacity 0.18s ease 1.18s, transform 0.2s ease 1.18s;
             opacity: 0;
-            transform: scale(1.2) translateY(2px);
+            transform: scale(1.12) translateY(1px);
         }
 
         .seal-crack-art {
@@ -1076,27 +1031,27 @@
         }
 
         #cover.open .seal-crack-path.seal-crack-main {
-            animation: crackDrawMain 0.72s cubic-bezier(0.42, 0, 0.58, 1) 0.12s forwards;
+            animation: crackDrawMain 1.45s cubic-bezier(0.42, 0, 0.58, 1) 0.15s forwards;
         }
 
         #cover.open .seal-crack-path.seal-crack-alt {
-            animation: crackDrawAlt 0.42s ease-out 0.38s forwards;
+            animation: crackDrawAlt 0.85s ease-out 0.75s forwards;
         }
 
         #cover.open .seal-crack-branch:nth-of-type(3) {
-            animation: crackBranch 0.34s ease-out 0.52s forwards;
+            animation: crackBranch 0.55s ease-out 1.05s forwards;
         }
 
         #cover.open .seal-crack-branch:nth-of-type(4) {
-            animation: crackBranch 0.3s ease-out 0.6s forwards;
+            animation: crackBranch 0.5s ease-out 1.22s forwards;
         }
 
         #cover.open .seal-crack-branch:nth-of-type(5) {
-            animation: crackBranch 0.28s ease-out 0.66s forwards;
+            animation: crackBranch 0.48s ease-out 1.36s forwards;
         }
 
         #cover.open .seal-crack-branch:nth-of-type(6) {
-            animation: crackBranch 0.24s ease-out 0.72s forwards;
+            animation: crackBranch 0.45s ease-out 1.5s forwards;
         }
 
         @keyframes crackDrawMain {
@@ -1177,15 +1132,15 @@
         }
 
         #cover.open .seal-chip-1 {
-            animation: chipFly1 0.75s cubic-bezier(0.22, 0.85, 0.35, 1) 0.52s forwards;
+            animation: chipFly1 0.9s cubic-bezier(0.22, 0.85, 0.35, 1) 1.32s forwards;
         }
 
         #cover.open .seal-chip-2 {
-            animation: chipFly2 0.68s cubic-bezier(0.22, 0.85, 0.35, 1) 0.54s forwards;
+            animation: chipFly2 0.82s cubic-bezier(0.22, 0.85, 0.35, 1) 1.38s forwards;
         }
 
         #cover.open .seal-chip-3 {
-            animation: chipFly3 0.62s cubic-bezier(0.22, 0.85, 0.35, 1) 0.56s forwards;
+            animation: chipFly3 0.78s cubic-bezier(0.22, 0.85, 0.35, 1) 1.44s forwards;
         }
 
         @keyframes chipFly1 {
@@ -1253,17 +1208,36 @@
 
         #cover.open .cover-curtain-l {
             transform: translateX(-102%);
-            transition-delay: 1s;
+            transition-delay: 1.85s;
         }
 
         #cover.open .cover-curtain-r {
             transform: translateX(102%);
-            transition-delay: 1s;
+            transition-delay: 1.85s;
         }
 
         #cover.open .cover-seal-layer {
-            transition: opacity 0.25s ease 1.2s;
-            opacity: 0;
+            animation: sealLayerHide 0.12s linear 1.28s forwards;
+        }
+
+        @keyframes sealLayerHide {
+            to {
+                opacity: 0;
+                visibility: hidden;
+                display: none;
+            }
+        }
+
+        #cover.open.is-clearing {
+            animation: coverClear 0.35s ease 3.6s forwards;
+        }
+
+        @keyframes coverClear {
+            to {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
         }
 
         .cover-content {
@@ -1280,7 +1254,7 @@
         }
 
         #cover.open .cover-content {
-            transition: opacity 0.3s ease 1.3s;
+            transition: opacity 0.35s ease 2.3s;
             opacity: 0;
             pointer-events: none;
         }
@@ -2904,28 +2878,54 @@
         document.getElementById('btnOpen').addEventListener('click', function() {
             if (cover.classList.contains('open')) return;
 
-            cover.classList.add('open');
+            cover.classList.add('open', 'is-clearing');
+
+            function removeSealLayer() {
+                var sealLayer = cover.querySelector('.cover-seal-layer');
+                if (!sealLayer || sealLayer.dataset.removed) return;
+                sealLayer.dataset.removed = '1';
+                sealLayer.style.display = 'none';
+                sealLayer.remove();
+            }
+
+            var sealRight = cover.querySelector('.seal-r');
+            var sealLeft = cover.querySelector('.seal-l');
+            [sealRight, sealLeft].forEach(function(half) {
+                if (!half) return;
+                half.addEventListener('animationend', function onSealSplitEnd(e) {
+                    if (e.animationName !== 'sealSplitL' && e.animationName !== 'sealSplitR') return;
+                    removeSealLayer();
+                });
+            });
+
+            window.setTimeout(removeSealLayer, 2900);
+
+            function hideCover() {
+                cover.classList.add('revealed');
+                cover.style.display = 'none';
+            }
+
             document.body.style.overflow = 'auto';
             musicBtn.classList.add('playing');
             song.play().catch(function() {});
 
             window.setTimeout(function() {
                 startPetals();
-            }, 2000);
+            }, 3000);
 
             window.setTimeout(function() {
                 document.querySelectorAll('#hero .reveal-up, #hero .reveal-zoom, #hero .flourish').forEach(function(el) {
                     el.classList.add('active');
                 });
-            }, 2600);
+            }, 3600);
 
             window.setTimeout(function() {
-                cover.classList.add('revealed');
+                hideCover();
                 syncPetalLayer();
                 syncButterflyLayer();
                 startButterflies();
                 if (navUserIdx === null) updateNavFromScroll();
-            }, 3200);
+            }, 3800);
 
             navScrollEnabled = true;
             setNavIndex(0, false);
