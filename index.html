@@ -2517,6 +2517,31 @@
                 el: document.getElementById('ucapan')
             }
         ];
+        const navScrollZones = [{
+                el: document.getElementById('hero'),
+                idx: 0
+            },
+            {
+                el: document.getElementById('couple'),
+                idx: 1
+            },
+            {
+                el: document.getElementById('event'),
+                idx: 2
+            },
+            {
+                el: document.getElementById('story'),
+                idx: 2
+            },
+            {
+                el: document.getElementById('gift'),
+                idx: 3
+            },
+            {
+                el: document.getElementById('ucapan'),
+                idx: 4
+            }
+        ];
         const NAV_DOT = 20;
         let activeNavIdx = 0;
         let navUserIdx = null;
@@ -2558,29 +2583,30 @@
 
         function getNavIndexFromScroll() {
             const vh = window.innerHeight;
-            const marker = vh * 0.32;
+            const marker = vh * 0.35;
 
-            for (let i = navSections.length - 1; i >= 0; i--) {
-                const el = navSections[i].el;
-                if (!el) continue;
-                const rect = el.getBoundingClientRect();
+            for (let i = navScrollZones.length - 1; i >= 0; i--) {
+                const zone = navScrollZones[i];
+                if (!zone.el) continue;
+                const rect = zone.el.getBoundingClientRect();
                 if (rect.top <= marker && rect.bottom > marker) {
-                    return i;
+                    return zone.idx;
                 }
             }
 
-            let best = 0;
-            let bestVisible = -1;
-            navSections.forEach(function(section, i) {
-                if (!section.el) return;
-                const rect = section.el.getBoundingClientRect();
-                const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
-                if (visible > bestVisible) {
-                    bestVisible = visible;
-                    best = i;
+            let bestIdx = activeNavIdx;
+            let bestDist = Infinity;
+            navScrollZones.forEach(function(zone) {
+                if (!zone.el) return;
+                const rect = zone.el.getBoundingClientRect();
+                const center = (rect.top + rect.bottom) / 2;
+                const dist = Math.abs(center - marker);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    bestIdx = zone.idx;
                 }
             });
-            return best;
+            return bestIdx;
         }
 
         function updateNavFromScroll() {
