@@ -151,7 +151,7 @@
                 opacity: 0;
             }
 
-            6% {
+            3% {
                 opacity: var(--petal-opacity, 0.9);
             }
 
@@ -333,6 +333,184 @@
         #cover.open .cover-vignette {
             transition: opacity 0.4s ease 0.6s;
             opacity: 0;
+        }
+
+        .cover-shimmer {
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 16% 28%, rgba(232, 213, 181, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 84% 38%, rgba(184, 147, 90, 0.16) 0%, transparent 36%),
+                radial-gradient(circle at 72% 78%, rgba(201, 166, 107, 0.12) 0%, transparent 34%),
+                radial-gradient(circle at 24% 72%, rgba(232, 213, 181, 0.1) 0%, transparent 32%);
+            animation: coverShimmer 9s ease-in-out infinite alternate;
+        }
+
+        @keyframes coverShimmer {
+            0% {
+                opacity: 0.55;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.04);
+            }
+        }
+
+        #cover.open .cover-shimmer {
+            transition: opacity 0.5s ease 0.7s;
+            opacity: 0;
+            animation: none;
+        }
+
+        .cover-dust {
+            position: absolute;
+            inset: 0;
+            z-index: 6;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cover-dust-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 245, 230, 0.95) 0%, rgba(232, 213, 181, 0.75) 35%, rgba(184, 147, 90, 0.2) 65%, transparent 100%);
+            box-shadow: 0 0 6px rgba(232, 213, 181, 0.45);
+            opacity: 0;
+            animation: dustFloat var(--dur) ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
+
+        .cover-dust-sparkle {
+            position: absolute;
+            width: var(--size);
+            height: var(--size);
+            opacity: 0;
+            animation: dustSparkle var(--dur) ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
+
+        .cover-dust-sparkle::before,
+        .cover-dust-sparkle::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background: linear-gradient(180deg, transparent, var(--gold-soft), transparent);
+            transform: translate(-50%, -50%);
+        }
+
+        .cover-dust-sparkle::before {
+            width: 1px;
+            height: 100%;
+        }
+
+        .cover-dust-sparkle::after {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+        }
+
+        @keyframes dustFloat {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.5);
+            }
+
+            18% {
+                opacity: var(--op);
+            }
+
+            82% {
+                opacity: calc(var(--op) * 0.35);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(var(--dx), var(--dy)) scale(1.1);
+            }
+        }
+
+        @keyframes dustSparkle {
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0.4) rotate(0deg);
+            }
+
+            45% {
+                opacity: var(--op);
+                transform: scale(1) rotate(45deg);
+            }
+
+            70% {
+                opacity: calc(var(--op) * 0.5);
+                transform: scale(0.8) rotate(90deg);
+            }
+        }
+
+        #cover.open .cover-dust {
+            transition: opacity 0.5s ease 0.7s;
+            opacity: 0;
+        }
+
+        .cover-corner {
+            position: absolute;
+            width: 68px;
+            height: 68px;
+            z-index: 7;
+            opacity: 0.42;
+            pointer-events: none;
+        }
+
+        .cover-corner svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cover-corner.tl {
+            top: 28px;
+            left: 10px;
+        }
+
+        .cover-corner.tr {
+            top: 28px;
+            right: 10px;
+            transform: scaleX(-1);
+        }
+
+        .cover-corner.bl {
+            bottom: 18px;
+            left: 10px;
+            transform: scaleY(-1);
+        }
+
+        .cover-corner.br {
+            bottom: 18px;
+            right: 10px;
+            transform: scale(-1);
+        }
+
+        #cover.open .cover-corner {
+            transition: opacity 0.45s ease 0.65s;
+            opacity: 0;
+        }
+
+        .cover-top .cover-divider {
+            width: 120px;
+            height: 18px;
+            margin: 12px auto 0;
+            opacity: 0.7;
+        }
+
+        .cover-top .cover-divider svg {
+            display: block;
+            width: 100%;
+            height: 100%;
         }
 
         .cover-rod {
@@ -1371,6 +1549,110 @@
             margin: 8px 0;
         }
 
+        #couple {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+        }
+
+        .couple-botanica {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .couple-leaf {
+            position: absolute;
+            pointer-events: none;
+            opacity: var(--leaf-op, 0.35);
+            width: var(--leaf-size, 28px);
+            transform: rotate(var(--leaf-rot, 0deg));
+        }
+
+        .couple-leaf img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .sakura-rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 18px 0 22px;
+            padding: 0 8px;
+        }
+
+        .sakura-rating .rating-leaf {
+            width: 30px;
+            height: auto;
+            flex-shrink: 0;
+            opacity: 0.5;
+        }
+
+        .sakura-rating .rating-leaf.left {
+            transform: rotate(-12deg);
+        }
+
+        .sakura-rating .rating-leaf.right {
+            transform: scaleX(-1) rotate(-12deg);
+        }
+
+        .sakura-rating .rating-track {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .sakura-rating .rating-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--gold-line);
+            flex-shrink: 0;
+            opacity: 0.85;
+        }
+
+        .sakura-rating .rating-line {
+            flex: 1;
+            height: 20px;
+        }
+
+        .sakura-rating .rating-line svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .sakura-rating .rating-line path {
+            stroke: var(--gold-line);
+            stroke-width: 1.1;
+            fill: none;
+            stroke-dasharray: 120;
+            stroke-dashoffset: 120;
+            transition: stroke-dashoffset 1.4s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .sakura-rating.active .rating-line path,
+        .sakura-rating.reveal-up.active .rating-line path {
+            stroke-dashoffset: 0;
+        }
+
+        #couple>:not(.couple-botanica) {
+            position: relative;
+            z-index: 2;
+        }
+
+        #couple .couple-card,
+        #couple .arch-photo {
+            position: relative;
+            z-index: 2;
+        }
+
         #event {
             background: linear-gradient(180deg, var(--blush), var(--ivory));
         }
@@ -1542,46 +1824,50 @@
         }
 
         .gallery-feature {
-            max-width: 268px;
-            margin: 0 auto 20px;
+            width: calc((100% - 10px) * 2 / 3 + 5px);
+            max-width: 286px;
+            margin: 0 auto 5px;
         }
 
-        .gallery-feature-frame {
+        .gallery-feature .tile {
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
             position: relative;
-            border: 1px solid var(--gold);
-            padding: 8px;
+        }
+
+        .gallery-feature .tile.tile-photo,
+        .gallery .tile.tile-photo {
             background: var(--ivory);
-            border-radius: 6px 6px 4px 4px;
-            box-shadow: 0 8px 26px rgba(67, 20, 31, 0.13);
+            box-shadow: 0 3px 14px rgba(67, 20, 31, 0.14);
+            border: 1px solid rgba(42, 33, 29, 0.42);
         }
 
-        .gallery-feature-frame::before {
-            content: '';
-            position: absolute;
-            inset: 5px;
-            border: 1px solid var(--gold-soft);
-            border-radius: 3px 3px 2px 2px;
-            pointer-events: none;
-            z-index: 2;
+        .gallery-feature .tile.tile-photo::after,
+        .gallery .tile.tile-photo::after {
+            inset: 0;
+            border: none;
         }
 
-        .gallery-feature-frame::after {
+        .gallery-feature .tile.tile-photo::before,
+        .gallery .tile.tile-photo::before {
             content: '';
             position: absolute;
             inset: 0;
             z-index: 2;
             pointer-events: none;
-            box-shadow: inset 0 0 20px rgba(67, 20, 31, 0.08);
-            border-radius: 6px 6px 4px 4px;
+            box-shadow: inset 0 0 16px rgba(67, 20, 31, 0.1);
         }
 
-        .gallery-feature-frame img {
-            display: block;
+        .gallery-feature .tile.tile-photo img,
+        .gallery .tile.tile-photo img {
             width: 100%;
-            aspect-ratio: 3/4;
+            height: 100%;
             object-fit: cover;
             object-position: center top;
-            border-radius: 2px;
+            display: block;
+            position: relative;
+            z-index: 1;
         }
 
         .gallery {
@@ -1619,36 +1905,6 @@
             z-index: 1;
         }
 
-        .gallery .tile.tile-photo {
-            background: var(--ivory);
-            box-shadow: 0 3px 14px rgba(67, 20, 31, 0.14);
-            border: 1px solid rgba(42, 33, 29, 0.42);
-        }
-
-        .gallery .tile.tile-photo::after {
-            inset: 0;
-            border: none;
-        }
-
-        .gallery .tile.tile-photo::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            pointer-events: none;
-            box-shadow: inset 0 0 16px rgba(67, 20, 31, 0.1);
-        }
-
-        .gallery .tile.tile-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-            display: block;
-            position: relative;
-            z-index: 1;
-        }
-
         #gift {
             background: linear-gradient(180deg, var(--wine-deep), var(--wine));
             color: var(--gold-soft);
@@ -1659,7 +1915,7 @@
         }
 
         #gift .eyebrow {
-            color: var(--gold-soft);
+            color: var(--gold);
         }
 
         #gift p.lead {
@@ -2036,11 +2292,57 @@
                 </div>
             </div>
             <div class="cover-vignette" aria-hidden="true"></div>
+            <div class="cover-shimmer" aria-hidden="true"></div>
+            <div class="cover-dust" id="coverDust" aria-hidden="true"></div>
+            <div class="cover-corner tl" aria-hidden="true">
+                <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 62 C3 40, 3 18, 3 3 C 22 3, 44 3, 62 3" stroke="#C9A66B" stroke-width="1.1" stroke-linecap="round" />
+                    <path d="M6 58 C6 38, 6 20, 6 6 C 22 6, 40 6, 58 6" stroke="#B8935A" stroke-width="0.7" stroke-linecap="round" opacity="0.55" />
+                    <circle cx="14" cy="46" r="2.2" fill="#E8D5B5" opacity="0.85" />
+                    <circle cx="22" cy="34" r="1.6" fill="#D4B88A" opacity="0.7" />
+                    <circle cx="10" cy="28" r="1.3" fill="#C9A66B" opacity="0.6" />
+                </svg>
+            </div>
+            <div class="cover-corner tr" aria-hidden="true">
+                <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 62 C3 40, 3 18, 3 3 C 22 3, 44 3, 62 3" stroke="#C9A66B" stroke-width="1.1" stroke-linecap="round" />
+                    <path d="M6 58 C6 38, 6 20, 6 6 C 22 6, 40 6, 58 6" stroke="#B8935A" stroke-width="0.7" stroke-linecap="round" opacity="0.55" />
+                    <circle cx="14" cy="46" r="2.2" fill="#E8D5B5" opacity="0.85" />
+                    <circle cx="22" cy="34" r="1.6" fill="#D4B88A" opacity="0.7" />
+                    <circle cx="10" cy="28" r="1.3" fill="#C9A66B" opacity="0.6" />
+                </svg>
+            </div>
+            <div class="cover-corner bl" aria-hidden="true">
+                <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 62 C3 40, 3 18, 3 3 C 22 3, 44 3, 62 3" stroke="#C9A66B" stroke-width="1.1" stroke-linecap="round" />
+                    <path d="M6 58 C6 38, 6 20, 6 6 C 22 6, 40 6, 58 6" stroke="#B8935A" stroke-width="0.7" stroke-linecap="round" opacity="0.55" />
+                    <circle cx="14" cy="46" r="2.2" fill="#E8D5B5" opacity="0.85" />
+                    <circle cx="22" cy="34" r="1.6" fill="#D4B88A" opacity="0.7" />
+                    <circle cx="10" cy="28" r="1.3" fill="#C9A66B" opacity="0.6" />
+                </svg>
+            </div>
+            <div class="cover-corner br" aria-hidden="true">
+                <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 62 C3 40, 3 18, 3 3 C 22 3, 44 3, 62 3" stroke="#C9A66B" stroke-width="1.1" stroke-linecap="round" />
+                    <path d="M6 58 C6 38, 6 20, 6 6 C 22 6, 40 6, 58 6" stroke="#B8935A" stroke-width="0.7" stroke-linecap="round" opacity="0.55" />
+                    <circle cx="14" cy="46" r="2.2" fill="#E8D5B5" opacity="0.85" />
+                    <circle cx="22" cy="34" r="1.6" fill="#D4B88A" opacity="0.7" />
+                    <circle cx="10" cy="28" r="1.3" fill="#C9A66B" opacity="0.6" />
+                </svg>
+            </div>
 
             <div class="cover-content">
                 <div class="cover-top cover-fade">
                     <p class="eyebrow">The Wedding Of</p>
                     <h1>Waguri<br>&amp;<br>Nico</h1>
+                    <div class="cover-divider" aria-hidden="true">
+                        <svg viewBox="0 0 120 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 9 C 28 3, 38 15, 60 9 C 82 3, 92 15, 118 9" stroke="#C9A66B" stroke-width="0.9" stroke-linecap="round" />
+                            <circle cx="60" cy="9" r="2.5" fill="#E8D5B5" opacity="0.9" />
+                            <circle cx="28" cy="7" r="1.2" fill="#B8935A" opacity="0.55" />
+                            <circle cx="92" cy="7" r="1.2" fill="#B8935A" opacity="0.55" />
+                        </svg>
+                    </div>
                 </div>
                 <div class="cover-center">
                     <div class="cover-seal-spacer" aria-hidden="true"></div>
@@ -2135,10 +2437,6 @@
                         <path d="M4 62 C 4 40, 4 18, 4 4 C 26 4, 48 4, 62 4" stroke="#A8956E" stroke-width="0.95" stroke-linecap="round" />
                     </svg></div>
 
-                <div class="hf-vine edge-h top"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true">
-                        <path d="M0 4 C 18 2, 36 6, 54 4 S 90 2, 108 4 S 144 6, 162 4 S 198 2, 216 4 S 252 6, 270 4 S 288 2, 300 4" stroke="#B8935A" stroke-width="1" stroke-linecap="round" vector-effect="non-scaling-stroke" />
-                        <path d="M0 2 C 18 6, 36 2, 54 4 S 90 6, 108 2 S 144 2, 162 4 S 198 6, 216 2 S 252 2, 270 4 S 288 6, 300 2" stroke="#A8956E" stroke-width="0.9" stroke-linecap="round" vector-effect="non-scaling-stroke" />
-                    </svg></div>
                 <div class="hf-vine edge-h bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true">
                         <path d="M0 4 C 18 2, 36 6, 54 4 S 90 2, 108 4 S 144 6, 162 4 S 198 2, 216 4 S 252 6, 270 4 S 288 2, 300 4" stroke="#B8935A" stroke-width="1" stroke-linecap="round" vector-effect="non-scaling-stroke" />
                         <path d="M0 2 C 18 6, 36 2, 54 4 S 90 6, 108 2 S 144 2, 162 4 S 198 6, 216 2 S 252 2, 270 4 S 288 6, 300 2" stroke="#A8956E" stroke-width="0.9" stroke-linecap="round" vector-effect="non-scaling-stroke" />
@@ -2159,11 +2457,6 @@
                     <p class="quote">"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan untukmu dari jenismu sendiri, agar kamu merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."</p>
                     <p class="quote-src">QS. Ar-Rum : 21</p>
                 </div>
-                <div class="flourish reveal-up stagger-2">
-                    <svg viewBox="0 0 130 26">
-                        <path d="M2 13 C 30 2, 45 24, 65 13 C 85 2, 100 24, 128 13" />
-                    </svg>
-                </div>
                 <h1 class="names reveal-zoom stagger-3">Waguri<span class="amp-small">&amp;</span>Nico</h1>
                 <p class="date reveal-up stagger-4">SABTU · 25 JULI 2026</p>
 
@@ -2179,11 +2472,20 @@
         </section>
 
         <section id="couple">
+            <div class="couple-botanica" id="coupleBotanica" aria-hidden="true"></div>
             <p class="eyebrow reveal-up">Kedua Mempelai</p>
-            <div class="flourish reveal-up">
-                <svg viewBox="0 0 130 26">
-                    <path d="M2 13 C 30 2, 45 24, 65 13 C 85 2, 100 24, 128 13" />
-                </svg>
+            <div class="sakura-rating reveal-up" aria-hidden="true">
+                <img class="rating-leaf left" src="assets/sakura/leaf.svg" alt="" loading="lazy" draggable="false">
+                <div class="rating-track">
+                    <span class="rating-dot"></span>
+                    <div class="rating-line">
+                        <svg viewBox="0 0 120 20" preserveAspectRatio="none">
+                            <path d="M2 10 C 22 4, 38 16, 60 10 C 82 4, 98 16, 118 10" />
+                        </svg>
+                    </div>
+                    <span class="rating-dot"></span>
+                </div>
+                <img class="rating-leaf right" src="assets/sakura/leaf.svg" alt="" loading="lazy" draggable="false">
             </div>
 
             <div class="couple-card reveal-up">
@@ -2273,7 +2575,7 @@
 
             <div class="gallery-wrap reveal-up">
                 <div class="gallery-feature">
-                    <div class="gallery-feature-frame">
+                    <div class="tile tile-photo">
                         <img src="https://i.pinimg.com/736x/a0/70/2f/a0702f036c877ca45d2c5c2514e3b676.jpg" alt="Waguri &amp; Nico">
                     </div>
                 </div>
@@ -2423,6 +2725,10 @@
             song.play().catch(function() {});
 
             window.setTimeout(function() {
+                startPetals();
+            }, 2000);
+
+            window.setTimeout(function() {
                 document.querySelectorAll('#hero .reveal-up, #hero .reveal-zoom, #hero .flourish').forEach(function(el) {
                     el.classList.add('active');
                 });
@@ -2432,7 +2738,6 @@
                 cover.classList.add('revealed');
                 syncPetalLayer();
                 syncButterflyLayer();
-                startPetals();
                 startButterflies();
                 if (navUserIdx === null) updateNavFromScroll();
             }, 3200);
@@ -2442,6 +2747,187 @@
             requestAnimationFrame(updateNavFromScroll);
         });
         document.body.style.overflow = 'hidden';
+
+        (function initCoverDust() {
+            const layer = document.getElementById('coverDust');
+            if (!layer || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            for (let i = 0; i < 52; i++) {
+                const p = document.createElement('span');
+                p.className = 'cover-dust-particle';
+                const size = 1.5 + Math.random() * 3.5;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = (Math.random() * 100) + '%';
+                p.style.top = (Math.random() * 100) + '%';
+                p.style.setProperty('--dur', (4 + Math.random() * 7) + 's');
+                p.style.setProperty('--delay', (Math.random() * 6) + 's');
+                p.style.setProperty('--op', (0.3 + Math.random() * 0.55).toFixed(2));
+                p.style.setProperty('--dx', (Math.random() * 36 - 18) + 'px');
+                p.style.setProperty('--dy', (-24 - Math.random() * 56) + 'px');
+                layer.appendChild(p);
+            }
+
+            for (let i = 0; i < 10; i++) {
+                const s = document.createElement('span');
+                s.className = 'cover-dust-sparkle';
+                const size = 6 + Math.random() * 8;
+                s.style.left = (8 + Math.random() * 84) + '%';
+                s.style.top = (12 + Math.random() * 76) + '%';
+                s.style.setProperty('--size', size + 'px');
+                s.style.setProperty('--dur', (5 + Math.random() * 8) + 's');
+                s.style.setProperty('--delay', (Math.random() * 7) + 's');
+                s.style.setProperty('--op', (0.25 + Math.random() * 0.45).toFixed(2));
+                layer.appendChild(s);
+            }
+        })();
+
+        (function scatterCoupleLeaves() {
+            const layer = document.getElementById('coupleBotanica');
+            const section = document.getElementById('couple');
+            if (!layer || !section) return;
+
+            const LEAF_ASPECT = 30 / 52;
+            const COUNT = 26;
+            const PAD = 36;
+            const MIN_GAP = 22;
+
+            function getExclusions() {
+                const box = section.getBoundingClientRect();
+                const blocks = section.querySelectorAll('.eyebrow, .sakura-rating, .couple-card, .amp-divider');
+                return Array.from(blocks).map(function(el) {
+                    const r = el.getBoundingClientRect();
+                    return {
+                        left: ((r.left - box.left - PAD) / box.width) * 100,
+                        top: ((r.top - box.top - PAD) / box.height) * 100,
+                        right: ((r.right - box.left + PAD) / box.width) * 100,
+                        bottom: ((r.bottom - box.top + PAD) / box.height) * 100
+                    };
+                });
+            }
+
+            function overlaps(left, top, wPct, hPct, exclusions) {
+                const right = left + wPct;
+                const bottom = top + hPct;
+                return exclusions.some(function(ex) {
+                    return !(right < ex.left || left > ex.right || bottom < ex.top || top > ex.bottom);
+                });
+            }
+
+            function tooCloseToOthers(left, top, wPct, hPct, others, box) {
+                const cx = left + wPct / 2;
+                const cy = top + hPct / 2;
+                return others.some(function(o) {
+                    const ox = o.left + o.wPct / 2;
+                    const oy = o.top + o.hPct / 2;
+                    const dx = (cx - ox) * box.width / 100;
+                    const dy = (cy - oy) * box.height / 100;
+                    return Math.hypot(dx, dy) < MIN_GAP;
+                });
+            }
+
+            function spawnLeaf(left, top, size, rot, op, flip) {
+                const el = document.createElement('div');
+                el.className = 'couple-leaf';
+                el.style.left = left + '%';
+                el.style.top = top + '%';
+                el.style.width = size + 'px';
+                el.style.opacity = op.toFixed(2);
+                el.style.transform = (flip ? 'scaleX(-1) ' : '') + 'rotate(' + rot.toFixed(1) + 'deg)';
+                el.innerHTML = '<img src="assets/sakura/leaf.svg" alt="" draggable="false" loading="lazy">';
+                layer.appendChild(el);
+            }
+
+            function placeLeaves() {
+                layer.innerHTML = '';
+                const box = section.getBoundingClientRect();
+                if (!box.width || !box.height) return;
+
+                const exclusions = getExclusions();
+                const placed = [];
+
+                function tryPlace(zone) {
+                    const size = 16 + Math.random() * 20;
+                    const wPct = (size / box.width) * 100;
+                    const hPct = ((size * LEAF_ASPECT) / box.height) * 100;
+                    const maxLeft = zone.leftMax - wPct;
+                    const maxTop = zone.topMax - hPct;
+                    if (maxLeft <= zone.leftMin || maxTop <= zone.topMin) return false;
+
+                    const left = zone.leftMin + Math.random() * (maxLeft - zone.leftMin);
+                    const top = zone.topMin + Math.random() * (maxTop - zone.topMin);
+                    if (overlaps(left, top, wPct, hPct, exclusions)) return false;
+                    if (tooCloseToOthers(left, top, wPct, hPct, placed, box)) return false;
+
+                    spawnLeaf(left, top, size, -60 + Math.random() * 120, 0.18 + Math.random() * 0.28, Math.random() > 0.45);
+                    placed.push({ left: left, top: top, wPct: wPct, hPct: hPct });
+                    return true;
+                }
+
+                var contentLeft = 50;
+                var contentRight = 50;
+                if (exclusions.length) {
+                    contentLeft = Math.min.apply(null, exclusions.map(function(e) { return e.left; }));
+                    contentRight = Math.max.apply(null, exclusions.map(function(e) { return e.right; }));
+                }
+
+                var leftZone = {
+                    leftMin: 1.5,
+                    leftMax: Math.max(3, contentLeft - 2),
+                    topMin: 2,
+                    topMax: 97
+                };
+                var rightZone = {
+                    leftMin: Math.min(96, contentRight + 2),
+                    leftMax: 97.5,
+                    topMin: 2,
+                    topMax: 97
+                };
+
+                function fillZone(zone, quota) {
+                    var bins = 12;
+                    var perBin = Math.ceil(quota / bins);
+                    for (var b = 0; b < bins && placed.length < COUNT; b++) {
+                        var span = (zone.topMax - zone.topMin) / bins;
+                        var binZone = {
+                            leftMin: zone.leftMin,
+                            leftMax: zone.leftMax,
+                            topMin: zone.topMin + b * span,
+                            topMax: zone.topMin + (b + 1) * span
+                        };
+                        var binCount = 0;
+                        var tries = 0;
+                        while (binCount < perBin && placed.length < COUNT && tries < 40) {
+                            tries++;
+                            if (tryPlace(binZone)) binCount++;
+                        }
+                    }
+                }
+
+                fillZone(leftZone, Math.ceil(COUNT / 2));
+                fillZone(rightZone, Math.ceil(COUNT / 2));
+
+                var attempts = 0;
+                while (placed.length < COUNT && attempts < COUNT * 60) {
+                    attempts++;
+                    tryPlace(Math.random() > 0.5 ? leftZone : rightZone);
+                }
+            }
+
+            function schedulePlace() {
+                requestAnimationFrame(function() {
+                    requestAnimationFrame(placeLeaves);
+                });
+            }
+
+            var resizeTimer;
+            schedulePlace();
+            window.addEventListener('load', schedulePlace);
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(placeLeaves, 150);
+            });
+        })();
 
         musicBtn.addEventListener('click', function() {
             if (song.paused) {
@@ -2477,7 +2963,7 @@
             petal.style.setProperty('--fall-distance', fallDistance);
             petal.style.setProperty('--petal-opacity', (0.75 + Math.random() * 0.2).toFixed(2));
             petal.style.animationDuration = dur + 's';
-            petal.style.animationDelay = (Math.random() * 1.5) + 's';
+            petal.style.animationDelay = (Math.random() * 0.35) + 's';
             petal.innerHTML = '<img src="' + asset + '" alt="" draggable="false">';
             container.appendChild(petal);
             setTimeout(() => petal.remove(), (dur + 2) * 1000);
@@ -2488,7 +2974,7 @@
         function startPetals() {
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             syncPetalLayer();
-            for (let i = 0; i < 8; i++) setTimeout(() => makePetal(petalLayer), i * 350);
+            for (let i = 0; i < 8; i++) setTimeout(() => makePetal(petalLayer), i * 150);
             if (!petalTimer) petalTimer = setInterval(() => makePetal(petalLayer), 1000);
         }
 
