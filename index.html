@@ -232,7 +232,7 @@
 
         section {
             position: relative;
-            padding: 76px 30px;
+            padding: 76px 30px 88px;
             text-align: center;
             z-index: 2;
         }
@@ -718,7 +718,7 @@
 
         .cover-curtain {
             position: absolute;
-            top: 20px;
+            top: 0;
             bottom: 0;
             width: 50%;
             z-index: 3;
@@ -909,7 +909,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 104px 20px 112px;
+            padding: 104px 20px 130px;
             background:
                 radial-gradient(circle at 50% 0%, var(--blush) 0%, transparent 60%),
                 radial-gradient(circle at 15% 75%, rgba(184, 147, 90, 0.12), transparent 45%),
@@ -1131,7 +1131,7 @@
             font-size: 0.98rem;
             color: var(--ink-soft);
             line-height: 1.7;
-            margin: 28px auto 0;
+            margin: 28px auto 12px;
             font-style: italic;
             max-width: 300px;
         }
@@ -1728,39 +1728,74 @@
 
         .navbar {
             position: fixed;
-            bottom: 16px;
+            bottom: max(18px, env(safe-area-inset-bottom, 0px));
             left: 50%;
             transform: translateX(-50%);
-            width: calc(100% - 44px);
-            max-width: 440px;
-            background: rgba(251, 244, 232, 0.9);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--gold-soft);
-            border-radius: 2px;
-            display: flex;
-            justify-content: space-around;
-            padding: 13px 8px;
-            box-shadow: 0 14px 34px rgba(67, 20, 31, 0.2);
+            width: min(400px, calc(100% - 32px));
+            padding: 5px;
+            background: rgba(251, 244, 232, 0.94);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(184, 147, 90, 0.26);
+            border-radius: 999px;
+            box-shadow: 0 6px 28px rgba(67, 20, 31, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.65);
             z-index: 200;
         }
 
+        .nav-inner {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            align-items: stretch;
+            height: 46px;
+        }
+
+        .nav-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20%;
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(160deg, rgba(107, 39, 55, 0.11), rgba(184, 147, 90, 0.16));
+            border: 1px solid rgba(184, 147, 90, 0.2);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transform: translateX(calc(var(--nav-pos, 0) * 100%));
+            transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .navbar.is-scrolling .nav-indicator {
+            transition: none;
+        }
+
         .navbar a {
-            color: var(--wine);
+            position: relative;
+            z-index: 1;
+            height: 46px;
+            color: rgba(107, 39, 55, 0.38);
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 34px;
-            height: 34px;
-            transition: transform 0.3s ease;
-        }
-
-        .navbar a:hover {
-            transform: translateY(-3px);
+            padding: 0;
+            border-radius: 999px;
+            transition: color 0.2s ease;
         }
 
         .navbar a svg {
-            width: 19px;
-            height: 19px;
+            width: 21px;
+            height: 21px;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .navbar a:hover {
+            color: rgba(107, 39, 55, 0.65);
+        }
+
+        .navbar a.active {
+            color: var(--wine);
         }
 
         .music-btn {
@@ -1871,15 +1906,39 @@
             <div class="hero-watermark" aria-hidden="true">&amp;</div>
 
             <div class="hero-frame reveal-zoom" aria-hidden="true">
-                <div class="hf-vine corner tl"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M2 62 C 2 38, 2 16, 2 2 C 24 2, 46 2, 62 2" stroke="#B8935A" stroke-width="1.1" stroke-linecap="round"/><path d="M4 62 C 4 40, 4 18, 4 4 C 26 4, 48 4, 62 4" stroke="#A8956E" stroke-width="0.95" stroke-linecap="round"/></svg></div>
-                <div class="hf-vine corner tr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M2 62 C 2 38, 2 16, 2 2 C 24 2, 46 2, 62 2" stroke="#B8935A" stroke-width="1.1" stroke-linecap="round"/><path d="M4 62 C 4 40, 4 18, 4 4 C 26 4, 48 4, 62 4" stroke="#A8956E" stroke-width="0.95" stroke-linecap="round"/></svg></div>
-                <div class="hf-vine corner bl"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M2 62 C 2 38, 2 16, 2 2 C 24 2, 46 2, 62 2" stroke="#B8935A" stroke-width="1.1" stroke-linecap="round"/><path d="M4 62 C 4 40, 4 18, 4 4 C 26 4, 48 4, 62 4" stroke="#A8956E" stroke-width="0.95" stroke-linecap="round"/></svg></div>
-                <div class="hf-vine corner br"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M2 62 C 2 38, 2 16, 2 2 C 24 2, 46 2, 62 2" stroke="#B8935A" stroke-width="1.1" stroke-linecap="round"/><path d="M4 62 C 4 40, 4 18, 4 4 C 26 4, 48 4, 62 4" stroke="#A8956E" stroke-width="0.95" stroke-linecap="round"/></svg></div>
+                <div class="hf-vine corner tl"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                        <path d="M2 62 C 2 38, 2 16, 2 2 C 24 2, 46 2, 62 2" stroke="#B8935A" stroke-width="1.1" stroke-linecap="round" />
+                        <path d="M4 62 C 4 40, 4 18, 4 4 C 26 4, 48 4, 62 4" stroke="#A8956E" stroke-width="0.95" stroke-linecap="round" />
+                    </svg></div>
+                <div class="hf-vine corner tr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                        <path d="M2 62 C 2 38, 2 16, 2 2 C 24 2, 46 2, 62 2" stroke="#B8935A" stroke-width="1.1" stroke-linecap="round" />
+                        <path d="M4 62 C 4 40, 4 18, 4 4 C 26 4, 48 4, 62 4" stroke="#A8956E" stroke-width="0.95" stroke-linecap="round" />
+                    </svg></div>
+                <div class="hf-vine corner bl"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                        <path d="M2 62 C 2 38, 2 16, 2 2 C 24 2, 46 2, 62 2" stroke="#B8935A" stroke-width="1.1" stroke-linecap="round" />
+                        <path d="M4 62 C 4 40, 4 18, 4 4 C 26 4, 48 4, 62 4" stroke="#A8956E" stroke-width="0.95" stroke-linecap="round" />
+                    </svg></div>
+                <div class="hf-vine corner br"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                        <path d="M2 62 C 2 38, 2 16, 2 2 C 24 2, 46 2, 62 2" stroke="#B8935A" stroke-width="1.1" stroke-linecap="round" />
+                        <path d="M4 62 C 4 40, 4 18, 4 4 C 26 4, 48 4, 62 4" stroke="#A8956E" stroke-width="0.95" stroke-linecap="round" />
+                    </svg></div>
 
-                <div class="hf-vine edge-h top"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M0 4 C 18 2, 36 6, 54 4 S 90 2, 108 4 S 144 6, 162 4 S 198 2, 216 4 S 252 6, 270 4 S 288 2, 300 4" stroke="#B8935A" stroke-width="1" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="M0 2 C 18 6, 36 2, 54 4 S 90 6, 108 2 S 144 2, 162 4 S 198 6, 216 2 S 252 2, 270 4 S 288 6, 300 2" stroke="#A8956E" stroke-width="0.9" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
-                <div class="hf-vine edge-h bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M0 4 C 18 2, 36 6, 54 4 S 90 2, 108 4 S 144 6, 162 4 S 198 2, 216 4 S 252 6, 270 4 S 288 2, 300 4" stroke="#B8935A" stroke-width="1" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="M0 2 C 18 6, 36 2, 54 4 S 90 6, 108 2 S 144 2, 162 4 S 198 6, 216 2 S 252 2, 270 4 S 288 6, 300 2" stroke="#A8956E" stroke-width="0.9" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
-                <div class="hf-vine edge-v left"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 300" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M4 0 C 2 18, 6 36, 4 54 S 2 90, 4 108 S 6 144, 4 162 S 2 198, 4 216 S 6 252, 4 270 S 2 288, 4 300" stroke="#B8935A" stroke-width="1" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="M2 0 C 6 18, 2 36, 4 54 S 6 90, 2 108 S 2 144, 4 162 S 6 198, 2 216 S 2 252, 4 270 S 6 288, 2 300" stroke="#A8956E" stroke-width="0.9" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
-                <div class="hf-vine edge-v right"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 300" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M4 0 C 2 18, 6 36, 4 54 S 2 90, 4 108 S 6 144, 4 162 S 2 198, 4 216 S 6 252, 4 270 S 2 288, 4 300" stroke="#B8935A" stroke-width="1" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="M2 0 C 6 18, 2 36, 4 54 S 6 90, 2 108 S 2 144, 4 162 S 6 198, 2 216 S 2 252, 4 270 S 6 288, 2 300" stroke="#A8956E" stroke-width="0.9" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+                <div class="hf-vine edge-h top"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M0 4 C 18 2, 36 6, 54 4 S 90 2, 108 4 S 144 6, 162 4 S 198 2, 216 4 S 252 6, 270 4 S 288 2, 300 4" stroke="#B8935A" stroke-width="1" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+                        <path d="M0 2 C 18 6, 36 2, 54 4 S 90 6, 108 2 S 144 2, 162 4 S 198 6, 216 2 S 252 2, 270 4 S 288 6, 300 2" stroke="#A8956E" stroke-width="0.9" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+                    </svg></div>
+                <div class="hf-vine edge-h bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M0 4 C 18 2, 36 6, 54 4 S 90 2, 108 4 S 144 6, 162 4 S 198 2, 216 4 S 252 6, 270 4 S 288 2, 300 4" stroke="#B8935A" stroke-width="1" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+                        <path d="M0 2 C 18 6, 36 2, 54 4 S 90 6, 108 2 S 144 2, 162 4 S 198 6, 216 2 S 252 2, 270 4 S 288 6, 300 2" stroke="#A8956E" stroke-width="0.9" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+                    </svg></div>
+                <div class="hf-vine edge-v left"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 300" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M4 0 C 2 18, 6 36, 4 54 S 2 90, 4 108 S 6 144, 4 162 S 2 198, 4 216 S 6 252, 4 270 S 2 288, 4 300" stroke="#B8935A" stroke-width="1" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+                        <path d="M2 0 C 6 18, 2 36, 4 54 S 6 90, 2 108 S 2 144, 4 162 S 6 198, 2 216 S 2 252, 4 270 S 6 288, 2 300" stroke="#A8956E" stroke-width="0.9" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+                    </svg></div>
+                <div class="hf-vine edge-v right"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 300" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M4 0 C 2 18, 6 36, 4 54 S 2 90, 4 108 S 6 144, 4 162 S 2 198, 4 216 S 6 252, 4 270 S 2 288, 4 300" stroke="#B8935A" stroke-width="1" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+                        <path d="M2 0 C 6 18, 2 36, 4 54 S 6 90, 2 108 S 2 144, 4 162 S 6 198, 2 216 S 2 252, 4 270 S 6 288, 2 300" stroke="#A8956E" stroke-width="0.9" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+                    </svg></div>
             </div>
 
             <div class="hero-inner">
@@ -2099,27 +2158,30 @@
             <p style="margin-top:20px;opacity:0.5;">Dibuat dengan ❤ — 2026</p>
         </footer>
 
-        <nav class="navbar">
-            <a href="#top"><svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3z" />
-                </svg></a>
-            <a href="#couple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-                    <circle cx="9" cy="8" r="3" />
-                    <circle cx="17" cy="8" r="3" />
-                    <path d="M2 21c0-4 3-7 7-7s7 3 7 7" />
-                    <path d="M13 21c0-3 2-5 5-5s5 2 5 5" />
-                </svg></a>
-            <a href="#event"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-                    <rect x="3" y="5" width="18" height="16" rx="1" />
-                    <path d="M8 3v4M16 3v4M3 10h18" />
-                </svg></a>
-            <a href="#gift"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-                    <rect x="3" y="9" width="18" height="12" rx="1" />
-                    <path d="M3 9h18M12 9v12M12 9c-2-4-8-4-8 0s6 4 8 0zm0 0c2-4 8-4 8 0s-6 4-8 0z" />
-                </svg></a>
-            <a href="#ucapan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-                    <path d="M4 4h16v12H8l-4 4z" />
-                </svg></a>
+        <nav class="navbar" id="navbar">
+            <div class="nav-inner">
+                <div class="nav-indicator" id="navIndicator" aria-hidden="true"></div>
+                <a href="#top" class="nav-item active" data-nav="top" aria-label="Beranda"><svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3z" />
+                    </svg></a>
+                <a href="#couple" class="nav-item" data-nav="couple" aria-label="Mempelai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <circle cx="9" cy="8" r="3" />
+                        <circle cx="17" cy="8" r="3" />
+                        <path d="M2 21c0-4 3-7 7-7s7 3 7 7" />
+                        <path d="M13 21c0-3 2-5 5-5s5 2 5 5" />
+                    </svg></a>
+                <a href="#event" class="nav-item" data-nav="event" aria-label="Acara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <rect x="3" y="5" width="18" height="16" rx="1" />
+                        <path d="M8 3v4M16 3v4M3 10h18" />
+                    </svg></a>
+                <a href="#gift" class="nav-item" data-nav="gift" aria-label="Hadiah"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <rect x="3" y="9" width="18" height="12" rx="1" />
+                        <path d="M3 9h18M12 9v12M12 9c-2-4-8-4-8 0s6 4 8 0zm0 0c2-4 8-4 8 0s-6 4-8 0z" />
+                    </svg></a>
+                <a href="#ucapan" class="nav-item" data-nav="ucapan" aria-label="Ucapan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <path d="M4 4h16v12H8l-4 4z" />
+                    </svg></a>
+            </div>
         </nav>
 
     </div>
@@ -2422,6 +2484,126 @@
         }, {
             passive: true
         });
+
+        const navBar = document.getElementById('navbar');
+        const navIndicator = document.getElementById('navIndicator');
+        const navItems = document.querySelectorAll('.navbar .nav-item');
+        const navSections = [{
+                id: 'top',
+                el: document.getElementById('hero')
+            },
+            {
+                id: 'couple',
+                el: document.getElementById('couple')
+            },
+            {
+                id: 'event',
+                el: document.getElementById('event')
+            },
+            {
+                id: 'gift',
+                el: document.getElementById('gift')
+            },
+            {
+                id: 'ucapan',
+                el: document.getElementById('ucapan')
+            }
+        ];
+        let activeNavId = 'top';
+        let navTicking = false;
+        let scrollNavTimer = null;
+
+        function setNavIndex(idx, scrolling) {
+            idx = Math.min(navSections.length - 1, Math.max(0, idx));
+            navBar.style.setProperty('--nav-pos', idx);
+            const id = navSections[idx].id;
+            if (id !== activeNavId) {
+                activeNavId = id;
+                navItems.forEach(function(link, i) {
+                    link.classList.toggle('active', i === idx);
+                });
+            }
+            if (scrolling) {
+                navBar.classList.add('is-scrolling');
+                clearTimeout(scrollNavTimer);
+                scrollNavTimer = setTimeout(function() {
+                    navBar.classList.remove('is-scrolling');
+                }, 120);
+            } else {
+                navBar.classList.remove('is-scrolling');
+            }
+        }
+
+        function getNavIndexFromScroll() {
+            const mid = window.scrollY + window.innerHeight * 0.45;
+            let idx = 0;
+            for (let i = navSections.length - 1; i >= 0; i--) {
+                if (navSections[i].el && navSections[i].el.offsetTop <= mid) {
+                    idx = i;
+                    break;
+                }
+            }
+            return idx;
+        }
+
+        function getNavIndex() {
+            if (location.hash) {
+                const hash = location.hash.slice(1);
+                const hashIdx = navSections.findIndex(function(s) {
+                    return s.id === hash;
+                });
+                if (hashIdx >= 0 && navSections[hashIdx].el) {
+                    const el = navSections[hashIdx].el;
+                    const top = el.offsetTop;
+                    const bottom = top + el.offsetHeight;
+                    const viewTop = window.scrollY;
+                    const viewBottom = viewTop + window.innerHeight;
+                    if (viewBottom > top + 80 && viewTop < bottom - 80) {
+                        return hashIdx;
+                    }
+                }
+            }
+            return getNavIndexFromScroll();
+        }
+
+        function updateNavSmooth() {
+            if (!navBar || !navItems.length) return;
+            setNavIndex(getNavIndex(), true);
+        }
+
+        function queueNavUpdate() {
+            if (navTicking) return;
+            navTicking = true;
+            requestAnimationFrame(function() {
+                updateNavSmooth();
+                navTicking = false;
+            });
+        }
+
+        function syncNavFromHash() {
+            const hash = (location.hash || '#top').slice(1);
+            const idx = navSections.findIndex(function(s) {
+                return s.id === hash;
+            });
+            if (idx >= 0) setNavIndex(idx, false);
+        }
+
+        navItems.forEach(function(link) {
+            link.addEventListener('click', function() {
+                const idx = navSections.findIndex(function(s) {
+                    return s.id === link.getAttribute('data-nav');
+                });
+                if (idx >= 0) setNavIndex(idx, false);
+            });
+        });
+
+        window.addEventListener('scroll', queueNavUpdate, {
+            passive: true
+        });
+        window.addEventListener('resize', queueNavUpdate);
+        window.addEventListener('hashchange', syncNavFromHash);
+        syncNavFromHash();
+        queueNavUpdate();
     </script>
 </body>
 
