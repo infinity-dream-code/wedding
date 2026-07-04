@@ -189,6 +189,75 @@
             }
         }
 
+        .butterflies-layer {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .butterfly {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            animation: bf-fade-in 2.2s ease forwards;
+            will-change: transform;
+        }
+
+        .butterfly svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            filter: drop-shadow(0 2px 5px rgba(107, 39, 55, 0.14));
+        }
+
+        .bf-wing-l {
+            transform-origin: 32px 24px;
+            animation: bf-flap-l var(--flap-dur, 0.34s) cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+            animation-delay: var(--flap-delay, 0s);
+        }
+
+        .bf-wing-r {
+            transform-origin: 32px 24px;
+            animation: bf-flap-r var(--flap-dur, 0.34s) cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+            animation-delay: calc(var(--flap-delay, 0s) + 0.04s);
+        }
+
+        @keyframes bf-flap-l {
+            0% {
+                transform: rotate(0deg) scaleX(1);
+            }
+
+            100% {
+                transform: rotate(-5deg) scaleX(0.52);
+            }
+        }
+
+        @keyframes bf-flap-r {
+            0% {
+                transform: rotate(0deg) scaleX(1);
+            }
+
+            100% {
+                transform: rotate(5deg) scaleX(0.52);
+            }
+        }
+
+        @keyframes bf-fade-in {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: var(--bf-opacity, 0.88);
+            }
+        }
+
         section {
             position: relative;
             padding: 76px 30px;
@@ -1365,6 +1434,7 @@
 <body>
 
     <div class="wrap" id="top">
+        <div class="butterflies-layer" id="butterflyLayer"></div>
         <div class="petals-layer" id="petalLayer"></div>
 
         <div id="cover">
@@ -1698,7 +1768,9 @@
             document.getElementById('musicBtn').classList.add('playing');
             setTimeout(() => {
                 syncPetalLayer();
+                syncButterflyLayer();
                 startPetals();
+                startButterflies();
             }, 900);
         });
         document.body.style.overflow = 'hidden';
@@ -1759,9 +1831,111 @@
             if (!petalTimer) petalTimer = setInterval(() => makePetal(petalLayer), 1000);
         }
 
+        const BUTTERFLY_SVGS = [
+            '<svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g class="bf-wing-l"><ellipse cx="18" cy="16" rx="13" ry="9" fill="#F5C6CE" opacity="0.93"/><ellipse cx="16" cy="28" rx="9" ry="7" fill="#E8A8B2" opacity="0.9"/><ellipse cx="18" cy="16" rx="13" ry="9" fill="none" stroke="#C9858F" stroke-width="0.55" opacity="0.45"/></g><g class="bf-mid"><ellipse cx="32" cy="24" rx="1.8" ry="9" fill="#5C4033"/><path d="M31 16 Q28 10 26 7" fill="none" stroke="#5C4033" stroke-width="0.7" stroke-linecap="round"/><path d="M33 16 Q36 10 38 7" fill="none" stroke="#5C4033" stroke-width="0.7" stroke-linecap="round"/><circle cx="26" cy="7" r="1" fill="#5C4033"/><circle cx="38" cy="7" r="1" fill="#5C4033"/></g><g class="bf-wing-r"><ellipse cx="46" cy="16" rx="13" ry="9" fill="#F5C6CE" opacity="0.93"/><ellipse cx="48" cy="28" rx="9" ry="7" fill="#E8A8B2" opacity="0.9"/><ellipse cx="46" cy="16" rx="13" ry="9" fill="none" stroke="#C9858F" stroke-width="0.55" opacity="0.45"/></g></svg>',
+            '<svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g class="bf-wing-l"><ellipse cx="18" cy="16" rx="13" ry="9" fill="#F0E0D3" opacity="0.94"/><ellipse cx="16" cy="28" rx="9" ry="7" fill="#E8D5B5" opacity="0.9"/><ellipse cx="18" cy="16" rx="13" ry="9" fill="none" stroke="#B8935A" stroke-width="0.55" opacity="0.5"/></g><g class="bf-mid"><ellipse cx="32" cy="24" rx="1.8" ry="9" fill="#4A3528"/><path d="M31 16 Q28 10 26 7" fill="none" stroke="#4A3528" stroke-width="0.7" stroke-linecap="round"/><path d="M33 16 Q36 10 38 7" fill="none" stroke="#4A3528" stroke-width="0.7" stroke-linecap="round"/><circle cx="26" cy="7" r="1" fill="#4A3528"/><circle cx="38" cy="7" r="1" fill="#4A3528"/></g><g class="bf-wing-r"><ellipse cx="46" cy="16" rx="13" ry="9" fill="#F0E0D3" opacity="0.94"/><ellipse cx="48" cy="28" rx="9" ry="7" fill="#E8D5B5" opacity="0.9"/><ellipse cx="46" cy="16" rx="13" ry="9" fill="none" stroke="#B8935A" stroke-width="0.55" opacity="0.5"/></g></svg>',
+            '<svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g class="bf-wing-l"><ellipse cx="18" cy="16" rx="13" ry="9" fill="#D4929A" opacity="0.88"/><ellipse cx="16" cy="28" rx="9" ry="7" fill="#9E4A5A" opacity="0.82"/><ellipse cx="18" cy="16" rx="13" ry="9" fill="none" stroke="#6B2737" stroke-width="0.55" opacity="0.4"/></g><g class="bf-mid"><ellipse cx="32" cy="24" rx="1.8" ry="9" fill="#3D2A22"/><path d="M31 16 Q28 10 26 7" fill="none" stroke="#3D2A22" stroke-width="0.7" stroke-linecap="round"/><path d="M33 16 Q36 10 38 7" fill="none" stroke="#3D2A22" stroke-width="0.7" stroke-linecap="round"/><circle cx="26" cy="7" r="1" fill="#3D2A22"/><circle cx="38" cy="7" r="1" fill="#3D2A22"/></g><g class="bf-wing-r"><ellipse cx="46" cy="16" rx="13" ry="9" fill="#D4929A" opacity="0.88"/><ellipse cx="48" cy="28" rx="9" ry="7" fill="#9E4A5A" opacity="0.82"/><ellipse cx="46" cy="16" rx="13" ry="9" fill="none" stroke="#6B2737" stroke-width="0.55" opacity="0.4"/></g></svg>'
+        ];
+
+        const butterflyLayer = document.getElementById('butterflyLayer');
+        const butterflies = [];
+        let bfRaf = null;
+
+        function syncButterflyLayer() {
+            butterflyLayer.style.height = wrapEl.offsetHeight + 'px';
+        }
+
+        function pickTarget(b, w, h) {
+            b.tx = 24 + Math.random() * (w - 48);
+            b.ty = 24 + Math.random() * (h - 48);
+        }
+
+        function spawnButterfly(delay) {
+            setTimeout(() => {
+                const w = butterflyLayer.offsetWidth || wrapEl.offsetWidth;
+                const h = butterflyLayer.offsetHeight || wrapEl.offsetHeight;
+                if (!w || !h) return;
+
+                const el = document.createElement('div');
+                el.className = 'butterfly';
+                const size = 30 + Math.random() * 16;
+                el.style.width = size + 'px';
+                el.style.height = Math.round(size * 0.75) + 'px';
+                el.style.setProperty('--flap-dur', (0.26 + Math.random() * 0.18).toFixed(2) + 's');
+                el.style.setProperty('--flap-delay', (Math.random() * 0.6).toFixed(2) + 's');
+                el.style.setProperty('--bf-opacity', (0.72 + Math.random() * 0.22).toFixed(2));
+                el.innerHTML = BUTTERFLY_SVGS[Math.floor(Math.random() * BUTTERFLY_SVGS.length)];
+
+                const b = {
+                    el: el,
+                    x: Math.random() * w,
+                    y: Math.random() * h * 0.55,
+                    tx: 0,
+                    ty: 0,
+                    t: Math.random() * 1000,
+                    speed: 0.35 + Math.random() * 0.45,
+                    wander: 0.7 + Math.random() * 1.1,
+                    tilt: Math.random() * 6 - 3
+                };
+                pickTarget(b, w, h);
+                butterflyLayer.appendChild(el);
+                butterflies.push(b);
+            }, delay);
+        }
+
+        function tickButterflies() {
+            const w = butterflyLayer.offsetWidth;
+            const h = butterflyLayer.offsetHeight;
+            if (!w || !h) {
+                bfRaf = requestAnimationFrame(tickButterflies);
+                return;
+            }
+
+            butterflies.forEach(function(b) {
+                b.t += 1;
+                const dx = b.tx - b.x;
+                const dy = b.ty - b.y;
+                const dist = Math.hypot(dx, dy) || 1;
+
+                if (dist < 36) pickTarget(b, w, h);
+
+                const nx = dx / dist;
+                const ny = dy / dist;
+                const flutter = Math.sin(b.t * 0.038 * b.wander);
+                const drift = Math.cos(b.t * 0.021) * 0.35;
+                const px = -ny;
+                const py = nx;
+
+                b.x += nx * b.speed + px * flutter * 0.85 + drift;
+                b.y += ny * b.speed * 0.82 + py * flutter * 0.65 + Math.sin(b.t * 0.027) * 0.28;
+                b.x = Math.max(8, Math.min(w - 40, b.x));
+                b.y = Math.max(8, Math.min(h - 40, b.y));
+
+                const angle = Math.atan2(dy, dx) * 180 / Math.PI + 90;
+                const sway = Math.sin(b.t * 0.055) * b.tilt;
+                b.el.style.transform = 'translate3d(' + b.x.toFixed(1) + 'px,' + b.y.toFixed(1) + 'px,0) rotate(' + (angle + sway).toFixed(1) + 'deg)';
+            });
+
+            bfRaf = requestAnimationFrame(tickButterflies);
+        }
+
+        function startButterflies() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            syncButterflyLayer();
+            for (let i = 0; i < 5; i++) spawnButterfly(i * 700);
+            if (!bfRaf) bfRaf = requestAnimationFrame(tickButterflies);
+        }
+
         syncPetalLayer();
-        window.addEventListener('resize', syncPetalLayer);
-        window.addEventListener('load', syncPetalLayer);
+        syncButterflyLayer();
+        window.addEventListener('resize', function() {
+            syncPetalLayer();
+            syncButterflyLayer();
+        });
+        window.addEventListener('load', function() {
+            syncPetalLayer();
+            syncButterflyLayer();
+        });
 
         const targetDate = new Date('2026-07-25T10:00:00+07:00').getTime();
 
