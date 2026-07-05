@@ -2277,6 +2277,14 @@
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
             object-fit: contain;
             background: #fff;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.28s ease, visibility 0.28s ease;
+        }
+
+        .gal-lightbox.open img {
+            opacity: 1;
+            visibility: visible;
         }
 
         .gal-lightbox-close {
@@ -3208,7 +3216,7 @@
                 <path d="M6 6l12 12M18 6L6 18" />
             </svg>
         </button>
-        <img src="" alt="Waguri &amp; Nico" id="galLightboxImg">
+        <img alt="" id="galLightboxImg">
     </div>
 
     <script>
@@ -3591,7 +3599,12 @@
             function closeLightbox() {
                 lightbox.classList.remove('open');
                 lightbox.setAttribute('aria-hidden', 'true');
-                lightboxImg.removeAttribute('src');
+                window.setTimeout(function() {
+                    if (!lightbox.classList.contains('open')) {
+                        lightboxImg.removeAttribute('src');
+                        lightboxImg.alt = '';
+                    }
+                }, 320);
                 if (!document.getElementById('cover') || document.getElementById('cover').style.display === 'none') {
                     document.body.style.overflow = 'auto';
                 }
