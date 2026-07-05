@@ -1860,25 +1860,24 @@
             display: block;
             width: 100%;
             height: auto;
+            overflow: visible;
         }
 
-        .sakura-rating .rating-leaf .leaf-fill {
-            fill: #7FD98A;
+        .sakura-rating .rating-leaf {
+            width: 30px;
+            height: auto;
+            flex-shrink: 0;
+            opacity: 1;
+            display: block;
+            color: #7FD98A;
         }
 
-        .sakura-rating .rating-leaf .leaf-edge {
-            fill: none;
-            stroke: #5DBF6E;
-            stroke-width: 0.5;
-            opacity: 0.55;
+        .sakura-rating .rating-leaf.left {
+            transform: rotate(78deg);
         }
 
-        .sakura-rating .rating-leaf .leaf-vein {
-            fill: none;
-            stroke: #6BCB77;
-            stroke-width: 0.55;
-            stroke-linecap: round;
-            opacity: 0.5;
+        .sakura-rating .rating-leaf.right {
+            transform: scaleX(-1) rotate(78deg);
         }
 
         .sakura-rating {
@@ -1888,22 +1887,6 @@
             gap: 10px;
             margin: 18px 0 22px;
             padding: 0 8px;
-        }
-
-        .sakura-rating .rating-leaf {
-            width: 30px;
-            height: auto;
-            flex-shrink: 0;
-            opacity: 1;
-            display: block;
-        }
-
-        .sakura-rating .rating-leaf.left {
-            transform: rotate(-12deg);
-        }
-
-        .sakura-rating .rating-leaf.right {
-            transform: scaleX(-1) rotate(-12deg);
         }
 
         .sakura-rating .rating-track {
@@ -2807,10 +2790,8 @@
         <section id="couple">
             <p class="eyebrow reveal-up">Kedua Mempelai</p>
             <div class="sakura-rating reveal-up" aria-hidden="true">
-                <span class="rating-leaf left"><svg viewBox="0 0 52 30" aria-hidden="true">
-                        <path class="leaf-fill" d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" />
-                        <path class="leaf-edge" d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" />
-                        <path class="leaf-vein" d="M8 21 C14 15, 22 9, 36 7" />
+                <span class="rating-leaf left"><svg viewBox="0 0 22 32" aria-hidden="true">
+                        <use href="#vbLeaf" width="22" height="32" />
                     </svg></span>
                 <div class="rating-track">
                     <span class="rating-dot"></span>
@@ -2821,10 +2802,8 @@
                     </div>
                     <span class="rating-dot"></span>
                 </div>
-                <span class="rating-leaf right"><svg viewBox="0 0 52 30" aria-hidden="true">
-                        <path class="leaf-fill" d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" />
-                        <path class="leaf-edge" d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" />
-                        <path class="leaf-vein" d="M8 21 C14 15, 22 9, 36 7" />
+                <span class="rating-leaf right"><svg viewBox="0 0 22 32" aria-hidden="true">
+                        <use href="#vbLeaf" width="22" height="32" />
                     </svg></span>
             </div>
 
