@@ -1862,6 +1862,25 @@
             height: auto;
         }
 
+        .sakura-rating .rating-leaf .leaf-fill {
+            fill: #7FD98A;
+        }
+
+        .sakura-rating .rating-leaf .leaf-edge {
+            fill: none;
+            stroke: #5DBF6E;
+            stroke-width: 0.5;
+            opacity: 0.55;
+        }
+
+        .sakura-rating .rating-leaf .leaf-vein {
+            fill: none;
+            stroke: #6BCB77;
+            stroke-width: 0.55;
+            stroke-linecap: round;
+            opacity: 0.5;
+        }
+
         .sakura-rating {
             display: flex;
             align-items: center;
@@ -1875,7 +1894,7 @@
             width: 30px;
             height: auto;
             flex-shrink: 0;
-            opacity: 0.5;
+            opacity: 1;
             display: block;
         }
 
@@ -2788,15 +2807,10 @@
         <section id="couple">
             <p class="eyebrow reveal-up">Kedua Mempelai</p>
             <div class="sakura-rating reveal-up" aria-hidden="true">
-                <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-                    <symbol id="sakuraLeafIcon" viewBox="0 0 52 30">
-                        <path d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" fill="#6BCB77" />
-                        <path d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" stroke="#3FA852" stroke-width="0.65" opacity="0.7" />
-                        <path d="M8 21 C14 15, 22 9, 36 7" stroke="#2E9B4A" stroke-width="0.8" stroke-linecap="round" opacity="0.65" />
-                    </symbol>
-                </svg>
-                <span class="rating-leaf left"><svg viewBox="0 0 52 30">
-                        <use href="#sakuraLeafIcon" />
+                <span class="rating-leaf left"><svg viewBox="0 0 52 30" aria-hidden="true">
+                        <path class="leaf-fill" d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" />
+                        <path class="leaf-edge" d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" />
+                        <path class="leaf-vein" d="M8 21 C14 15, 22 9, 36 7" />
                     </svg></span>
                 <div class="rating-track">
                     <span class="rating-dot"></span>
@@ -2807,8 +2821,10 @@
                     </div>
                     <span class="rating-dot"></span>
                 </div>
-                <span class="rating-leaf right"><svg viewBox="0 0 52 30">
-                        <use href="#sakuraLeafIcon" />
+                <span class="rating-leaf right"><svg viewBox="0 0 52 30" aria-hidden="true">
+                        <path class="leaf-fill" d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" />
+                        <path class="leaf-edge" d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" />
+                        <path class="leaf-vein" d="M8 21 C14 15, 22 9, 36 7" />
                     </svg></span>
             </div>
 
@@ -3063,6 +3079,7 @@
 
             const stemLen = stemPath.getTotalLength();
             const MIN_GAP = 10;
+            const ROOT_GAP = 8;
             const slots = [];
 
             function stemPoint(t) {
@@ -3070,7 +3087,12 @@
                 const p = stemPath.getPointAtLength(len);
                 const p2 = stemPath.getPointAtLength(Math.min(len + 2, stemLen));
                 const angle = Math.atan2(p2.y - p.y, p2.x - p.x) * 180 / Math.PI;
-                return { x: p.x, y: p.y, angle: angle, t: t };
+                return {
+                    x: p.x,
+                    y: p.y,
+                    angle: angle,
+                    t: t
+                };
             }
 
             function dist(a, b) {
@@ -3079,17 +3101,58 @@
                 return Math.sqrt(dx * dx + dy * dy);
             }
 
-            function isTooClose(x, y) {
+            function slotConflict(x, y, incomingKind) {
                 for (let i = 0; i < slots.length; i++) {
-                    if (dist(slots[i], { x: x, y: y }) < MIN_GAP) return true;
+                    const d = dist(slots[i], {
+                        x: x,
+                        y: y
+                    });
+                    let gap = MIN_GAP;
+                    if (incomingKind === 'stem' && slots[i].kind === 'root') gap = 15;
+                    else if (incomingKind === 'root' && slots[i].kind === 'root') gap = ROOT_GAP;
+                    if (d < gap) return true;
                 }
                 return false;
             }
 
             function tryAddSlot(slot) {
-                if (isTooClose(slot.x, slot.y)) return false;
+                if (slotConflict(slot.x, slot.y, slot.kind)) return false;
                 slots.push(slot);
                 return true;
+            }
+
+            function addRootLeaf(sp, rw, rh, lx, ly, ang, w, delay) {
+                const nudges = [
+                    [0, 0],
+                    [-0.6, 1],
+                    [0.6, -1],
+                    [0, 1.8],
+                    [-1, 0.5],
+                    [1, -0.5],
+                    [0, -1],
+                    [-0.5, 2]
+                ];
+                for (let n = 0; n < nudges.length; n++) {
+                    const pt = rootToGlobal(sp, rw, rh, lx + nudges[n][0], ly + nudges[n][1]);
+                    const slot = {
+                        x: pt.x,
+                        y: pt.y,
+                        angle: sp.angle + ang,
+                        w: w,
+                        delay: delay,
+                        kind: 'root'
+                    };
+                    if (tryAddSlot(slot)) return true;
+                }
+                return false;
+            }
+
+            function countRootLeaves(root, radius) {
+                let c = 0;
+                for (let i = 0; i < slots.length; i++) {
+                    if (slots[i].kind === 'root' && dist(slots[i], root.sp) < radius) c++;
+                }
+                return c;
             }
 
             function rootToGlobal(sp, w, h, lx, ly) {
@@ -3127,7 +3190,12 @@
                 const sp = stemPoint(t);
                 const rh = 20 + (i % 3) * 7;
                 const rw = rh * 0.38;
-                roots.push({ sp: sp, w: rw, h: rh, t: t });
+                roots.push({
+                    sp: sp,
+                    w: rw,
+                    h: rh,
+                    t: t
+                });
 
                 const rootUse = document.createElementNS(ns, 'use');
                 rootUse.setAttribute('href', '#vbRoot');
@@ -3141,26 +3209,142 @@
                 rootUse.style.transitionDelay = (t * 0.9 + 0.15).toFixed(2) + 's';
                 rootGroup.appendChild(rootUse);
 
-                const branchSlots = [
-                    { lx: 12, ly: 14, ang: 88, w: 5.5 },
-                    { lx: 4, ly: 21.5, ang: -38, w: 6 },
-                    { lx: 12, ly: 30, ang: 92, w: 5.5 },
-                    { lx: 17, ly: 38.5, ang: 38, w: 6 },
-                    { lx: 4, ly: 54.5, ang: -32, w: 5.5 },
-                    { lx: 8, ly: 60, ang: 90 + (i % 2 ? 14 : -14), w: 6.5 }
+                const branchSlots = [{
+                        lx: 12,
+                        ly: 8,
+                        ang: 86,
+                        w: 5
+                    },
+                    {
+                        lx: 12,
+                        ly: 14,
+                        ang: 88,
+                        w: 5.5
+                    },
+                    {
+                        lx: 7,
+                        ly: 19,
+                        ang: -42,
+                        w: 5.5
+                    },
+                    {
+                        lx: 4,
+                        ly: 21.5,
+                        ang: -38,
+                        w: 6
+                    },
+                    {
+                        lx: 11,
+                        ly: 23,
+                        ang: 91,
+                        w: 5
+                    },
+                    {
+                        lx: 12,
+                        ly: 30,
+                        ang: 92,
+                        w: 5.5
+                    },
+                    {
+                        lx: 14,
+                        ly: 36,
+                        ang: 34,
+                        w: 5.5
+                    },
+                    {
+                        lx: 17,
+                        ly: 38.5,
+                        ang: 38,
+                        w: 6
+                    },
+                    {
+                        lx: 10,
+                        ly: 42,
+                        ang: 93,
+                        w: 5
+                    },
+                    {
+                        lx: 6,
+                        ly: 52,
+                        ang: -36,
+                        w: 5.5
+                    },
+                    {
+                        lx: 4,
+                        ly: 54.5,
+                        ang: -32,
+                        w: 5.5
+                    },
+                    {
+                        lx: 9,
+                        ly: 56,
+                        ang: 90,
+                        w: 5.5
+                    },
+                    {
+                        lx: 8,
+                        ly: 60,
+                        ang: 90 + (i % 2 ? 14 : -14),
+                        w: 6.5
+                    }
                 ];
 
                 branchSlots.forEach(function(bs, bi) {
-                    const pt = rootToGlobal(sp, rw, rh, bs.lx, bs.ly);
-                    tryAddSlot({
-                        x: pt.x,
-                        y: pt.y,
-                        angle: sp.angle + bs.ang,
-                        w: bs.w,
-                        delay: t * 0.9 + 0.25 + bi * 0.05
-                    });
+                    addRootLeaf(sp, rw, rh, bs.lx, bs.ly, bs.ang, bs.w, t * 0.9 + 0.25 + bi * 0.04);
                 });
             }
+
+            const rootFillSlots = [{
+                    lx: 10,
+                    ly: 5,
+                    ang: 84,
+                    w: 5
+                },
+                {
+                    lx: 13,
+                    ly: 18,
+                    ang: 40,
+                    w: 5
+                },
+                {
+                    lx: 8,
+                    ly: 27,
+                    ang: -30,
+                    w: 5
+                },
+                {
+                    lx: 15,
+                    ly: 33,
+                    ang: 42,
+                    w: 5
+                },
+                {
+                    lx: 5,
+                    ly: 47,
+                    ang: -40,
+                    w: 5
+                },
+                {
+                    lx: 11,
+                    ly: 48,
+                    ang: 88,
+                    w: 5
+                },
+                {
+                    lx: 7,
+                    ly: 58,
+                    ang: 86,
+                    w: 5.5
+                }
+            ];
+
+            roots.forEach(function(root, i) {
+                if (countRootLeaves(root, 24) >= 7) return;
+                const t = root.t;
+                rootFillSlots.forEach(function(bs, bi) {
+                    addRootLeaf(root.sp, root.w, root.h, bs.lx, bs.ly, bs.ang, bs.w, t * 0.9 + 0.5 + bi * 0.03);
+                });
+            });
 
             function isNearRootAttach(sp, radius) {
                 for (let r = 0; r < roots.length; r++) {
@@ -3169,16 +3353,28 @@
                 return false;
             }
 
-            function addStemLeaf(sp, stemIdx, delay) {
-                if (isNearRootAttach(sp, 6)) return false;
+            function addStemLeaf(t, stemIdx, delay) {
+                const shifts = [0, -0.022, 0.022, -0.044, 0.044, -0.066, 0.066, -0.088, 0.088];
                 const tilt = (stemIdx % 3 - 1) * 5;
-                return tryAddSlot({
-                    x: sp.x,
-                    y: sp.y,
-                    angle: sp.angle + 180 + tilt,
-                    w: 6.2 + (stemIdx % 3) * 0.5,
-                    delay: delay
-                });
+                const w = 6.2 + (stemIdx % 3) * 0.5;
+
+                for (let si = 0; si < shifts.length; si++) {
+                    const tryT = t + shifts[si];
+                    if (tryT < 0.03 || tryT > 0.97) continue;
+                    const sp = stemPoint(tryT);
+                    if (isNearRootAttach(sp, 6)) continue;
+
+                    const slot = {
+                        x: sp.x,
+                        y: sp.y,
+                        angle: sp.angle + 180 + tilt,
+                        w: w,
+                        delay: delay,
+                        kind: 'stem'
+                    };
+                    if (tryAddSlot(slot)) return true;
+                }
+                return false;
             }
 
             let stemIdx = 0;
@@ -3186,7 +3382,7 @@
             if (roots.length) {
                 const edgeTs = [roots[0].t * 0.4, roots[roots.length - 1].t + (1 - roots[roots.length - 1].t) * 0.6];
                 edgeTs.forEach(function(t) {
-                    if (addStemLeaf(stemPoint(t), stemIdx++, t * 0.85)) {}
+                    addStemLeaf(t, stemIdx++, t * 0.85);
                 });
 
                 for (let i = 1; i < roots.length; i++) {
@@ -3195,14 +3391,14 @@
                     const fills = [0.28, 0.5, 0.72];
                     fills.forEach(function(fr) {
                         const t = tA + (tB - tA) * fr;
-                        addStemLeaf(stemPoint(t), stemIdx++, t * 0.85);
+                        addStemLeaf(t, stemIdx++, t * 0.85);
                     });
                 }
             }
 
             for (let len = 8; len < stemLen - 8; len += 9) {
                 const t = len / stemLen;
-                addStemLeaf(stemPoint(t), stemIdx++, t * 0.85);
+                addStemLeaf(t, stemIdx++, t * 0.85);
             }
 
             slots.forEach(function(slot) {
