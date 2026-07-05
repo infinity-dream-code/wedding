@@ -2076,6 +2076,39 @@
             transform: rotate(-150deg) scale(1);
         }
 
+        @keyframes arch-sakura-sway {
+            0%, 100% {
+                transform: rotate(0deg) translate3d(0, 0, 0);
+            }
+
+            25% {
+                transform: rotate(2.4deg) translate3d(1px, 0.5px, 0);
+            }
+
+            50% {
+                transform: rotate(-2deg) translate3d(-1px, 1px, 0);
+            }
+
+            75% {
+                transform: rotate(1.6deg) translate3d(0.5px, 0, 0);
+            }
+        }
+
+        .couple-card.reveal-up.active .arch-floral-a img {
+            transform-origin: 72% 90%;
+            animation: arch-sakura-sway 5.4s ease-in-out infinite;
+        }
+
+        #couple .couple-card + .amp-divider + .couple-card.reveal-up.active .arch-floral-a img {
+            animation-delay: -2.6s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .couple-card.reveal-up.active .arch-floral-a img {
+                animation: none;
+            }
+        }
+
         .vine-bridge {
             position: relative;
             z-index: 4;
@@ -2530,6 +2563,25 @@
 
         .gallery-wrap.reveal-up.active .mosaic-floral-tr {
             transform: rotate(12deg) scaleX(-1) scale(1);
+        }
+
+        .gallery-wrap.reveal-up.active .mosaic-floral-tl img {
+            transform-origin: 82% 88%;
+            animation: arch-sakura-sway 5.4s ease-in-out infinite;
+            animation-delay: -0.6s;
+        }
+
+        .gallery-wrap.reveal-up.active .mosaic-floral-tr img {
+            transform-origin: 82% 88%;
+            animation: arch-sakura-sway 5.8s ease-in-out infinite;
+            animation-delay: -2.3s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .gallery-wrap.reveal-up.active .mosaic-floral-tl img,
+            .gallery-wrap.reveal-up.active .mosaic-floral-tr img {
+                animation: none;
+            }
         }
 
         .gal-formal {
