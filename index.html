@@ -458,6 +458,7 @@
         }
 
         @keyframes dustSparkle {
+
             0%,
             100% {
                 opacity: 0;
@@ -1820,8 +1821,7 @@
             overflow: visible;
         }
 
-        .vine-bridge .vb-stem,
-        .vine-bridge .vb-tendril {
+        .vine-bridge .vb-stem {
             fill: none;
             stroke-linecap: round;
             stroke-linejoin: round;
@@ -1841,22 +1841,18 @@
             opacity: 0.7;
         }
 
-        .vine-bridge .vb-tendril {
-            stroke: #6B4F32;
-            stroke-width: 1.25;
-        }
-
-        .vine-bridge .vb-leaves {
-            opacity: 0;
-            transition: opacity 0.7s ease 0.9s;
-        }
-
-        .vine-bridge.active .vb-stem,
-        .vine-bridge.active .vb-tendril {
+        .vine-bridge.active .vb-stem {
             stroke-dashoffset: 0;
         }
 
-        .vine-bridge.active .vb-leaves {
+        .vb-leaf-item,
+        .vb-root-item {
+            opacity: 0;
+            transition: opacity 0.9s ease;
+        }
+
+        .vine-bridge.active .vb-leaf-item,
+        .vine-bridge.active .vb-root-item {
             opacity: 1;
         }
 
@@ -1933,7 +1929,7 @@
             stroke-dashoffset: 0;
         }
 
-        #couple > * {
+        #couple>* {
             position: relative;
             z-index: 2;
         }
@@ -1952,7 +1948,7 @@
             background: linear-gradient(180deg, var(--blush), var(--ivory));
         }
 
-        #event > * {
+        #event>* {
             position: relative;
             z-index: 2;
         }
@@ -2592,6 +2588,24 @@
                     <circle cx="38" cy="42" r="1.3" fill="#C9A66B" opacity="0.5" />
                     <circle cx="30" cy="50" r="1.4" fill="#B8935A" opacity="0.45" />
                 </symbol>
+                <symbol id="vbLeaf" viewBox="0 0 22 32">
+                    <path d="M11 1 C4 5 1 13 1 18 C1 25 5 30 11 31 C17 30 21 25 21 18 C21 13 18 5 11 1 Z" fill="currentColor" />
+                    <path d="M11 1 C7 5 4 12 4 17 C4 22 6 26 9 29" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.4" stroke-linecap="round" />
+                    <path d="M11 3 C10 11 10 21 11 30" fill="none" stroke="rgba(0,0,0,0.28)" stroke-width="0.6" stroke-linecap="round" />
+                    <path d="M11 10 C9 11.5 7 13 6 15" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="0.45" stroke-linecap="round" />
+                    <path d="M11 10 C13 11.5 15 13 16 15" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="0.45" stroke-linecap="round" />
+                    <path d="M11 17 C9 18.5 7 20 6 22" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="0.45" stroke-linecap="round" />
+                    <path d="M11 17 C13 18.5 15 20 16 22" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="0.45" stroke-linecap="round" />
+                    <path d="M11 23 C10 24.5 9 26 8.5 27.5" fill="none" stroke="rgba(0,0,0,0.16)" stroke-width="0.4" stroke-linecap="round" />
+                    <path d="M11 23 C12 24.5 13 26 13.5 27.5" fill="none" stroke="rgba(0,0,0,0.16)" stroke-width="0.4" stroke-linecap="round" />
+                </symbol>
+                <symbol id="vbRoot" viewBox="0 0 24 60">
+                    <path d="M12 0 C9 6 15 11 11 17 C7 23 14 28 10 34 C7 39 13 44 9 50 C7 54 10 57 8 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.85" />
+                    <path d="M11 17 C8.5 19.5 6 21 4 21.5" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.6" />
+                    <path d="M10 34 C12.5 36.5 15 38 17 38.5" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" opacity="0.55" />
+                    <path d="M9 50 C7 52.5 5.5 54 4 54.5" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" opacity="0.5" />
+                    <path d="M8 60 C6 61 5 61.5 4 62" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" opacity="0.45" />
+                </symbol>
             </defs>
         </svg>
 
@@ -2701,10 +2715,18 @@
 
         <section id="hero">
             <div class="hero-frame reveal-zoom" aria-hidden="true">
-                <div class="hf-floral tl"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#hfCornerFloral" /></svg></div>
-                <div class="hf-floral tr"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#hfCornerFloral" /></svg></div>
-                <div class="hf-floral bl"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#hfCornerFloral" /></svg></div>
-                <div class="hf-floral br"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#hfCornerFloral" /></svg></div>
+                <div class="hf-floral tl"><svg viewBox="0 0 88 88" aria-hidden="true">
+                        <use href="#hfCornerFloral" />
+                    </svg></div>
+                <div class="hf-floral tr"><svg viewBox="0 0 88 88" aria-hidden="true">
+                        <use href="#hfCornerFloral" />
+                    </svg></div>
+                <div class="hf-floral bl"><svg viewBox="0 0 88 88" aria-hidden="true">
+                        <use href="#hfCornerFloral" />
+                    </svg></div>
+                <div class="hf-floral br"><svg viewBox="0 0 88 88" aria-hidden="true">
+                        <use href="#hfCornerFloral" />
+                    </svg></div>
                 <div class="hf-vine corner tl"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
                         <path d="M2 62 C 2 38, 2 16, 2 2 C 24 2, 46 2, 62 2" stroke="#B8935A" stroke-width="1.1" stroke-linecap="round" />
                         <path d="M4 62 C 4 40, 4 18, 4 4 C 26 4, 48 4, 62 4" stroke="#A8956E" stroke-width="0.95" stroke-linecap="round" />
@@ -2768,12 +2790,14 @@
             <div class="sakura-rating reveal-up" aria-hidden="true">
                 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
                     <symbol id="sakuraLeafIcon" viewBox="0 0 52 30">
-                        <path d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" fill="#6BCB77"/>
-                        <path d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" stroke="#3FA852" stroke-width="0.65" opacity="0.7"/>
-                        <path d="M8 21 C14 15, 22 9, 36 7" stroke="#2E9B4A" stroke-width="0.8" stroke-linecap="round" opacity="0.65"/>
+                        <path d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" fill="#6BCB77" />
+                        <path d="M3 22 C7 12, 15 5, 26 3 C36 2, 44 6, 48 13 C50 17, 48 22, 42 24 C32 27, 18 28, 8 24 C5 23, 3 22, 3 22 Z" stroke="#3FA852" stroke-width="0.65" opacity="0.7" />
+                        <path d="M8 21 C14 15, 22 9, 36 7" stroke="#2E9B4A" stroke-width="0.8" stroke-linecap="round" opacity="0.65" />
                     </symbol>
                 </svg>
-                <span class="rating-leaf left"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></span>
+                <span class="rating-leaf left"><svg viewBox="0 0 52 30">
+                        <use href="#sakuraLeafIcon" />
+                    </svg></span>
                 <div class="rating-track">
                     <span class="rating-dot"></span>
                     <div class="rating-line">
@@ -2783,7 +2807,9 @@
                     </div>
                     <span class="rating-dot"></span>
                 </div>
-                <span class="rating-leaf right"><svg viewBox="0 0 52 30"><use href="#sakuraLeafIcon"/></svg></span>
+                <span class="rating-leaf right"><svg viewBox="0 0 52 30">
+                        <use href="#sakuraLeafIcon" />
+                    </svg></span>
             </div>
 
             <div class="couple-card reveal-up">
@@ -2815,70 +2841,8 @@
             <svg viewBox="0 0 360 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
                 <path class="vb-stem" d="M4 28 C 48 22, 96 32, 144 27 C 192 22, 240 31, 288 27 C 324 24, 352 28, 356 28" />
                 <path class="vb-stem vb-stem-alt" d="M4 30 C 48 25, 96 34, 144 30 C 192 25, 240 33, 288 30 C 324 26, 352 30, 356 30" />
-                <path class="vb-tendril" d="M14 28 C 10 36, 16 44, 12 52 C 8 56, 14 54, 10 56" />
-                <path class="vb-tendril" d="M36 27 C 32 35, 38 43, 34 50 C 30 54, 36 52, 32 54" />
-                <path class="vb-tendril" d="M58 28 C 54 36, 60 44, 56 52 C 52 56, 58 54, 54 56" />
-                <path class="vb-tendril" d="M92 27 C 88 35, 94 43, 90 50 C 86 54, 92 52, 88 54" />
-                <path class="vb-tendril" d="M128 28 C 124 38, 130 46, 126 52 C 122 55, 128 53, 124 55" />
-                <path class="vb-tendril" d="M164 27 C 160 36, 168 44, 164 51 C 160 54, 166 52, 162 54" />
-                <path class="vb-tendril" d="M196 28 C 192 37, 200 45, 196 52 C 192 55, 198 53, 194 55" />
-                <path class="vb-tendril" d="M232 27 C 228 36, 236 44, 232 51 C 228 54, 234 52, 230 54" />
-                <path class="vb-tendril" d="M268 28 C 264 37, 272 45, 268 52 C 264 55, 270 53, 266 55" />
-                <path class="vb-tendril" d="M304 28 C 300 36, 308 44, 304 50 C 300 54, 306 52, 302 54" />
-                <path class="vb-tendril" d="M326 27 C 322 35, 328 43, 324 50 C 320 54, 326 52, 322 54" />
-                <path class="vb-tendril" d="M346 28 C 342 36, 348 44, 344 52 C 340 56, 346 54, 342 56" />
-                <g class="vb-leaves">
-                    <ellipse cx="10" cy="27" rx="5.5" ry="3.5" fill="#6BCB77" transform="rotate(-18 10 27)"/>
-                    <ellipse cx="22" cy="29" rx="5" ry="3.2" fill="#5DBF6E" transform="rotate(20 22 29)"/>
-                    <ellipse cx="34" cy="26" rx="5.5" ry="3.5" fill="#6BCB77" transform="rotate(-22 34 26)"/>
-                    <ellipse cx="48" cy="27" rx="6.5" ry="4" fill="#6BCB77" transform="rotate(-22 48 27)"/>
-                    <ellipse cx="66" cy="29" rx="5.5" ry="3.5" fill="#5DBF6E" transform="rotate(18 66 29)"/>
-                    <ellipse cx="84" cy="26" rx="6" ry="3.8" fill="#6BCB77" transform="rotate(-15 84 26)"/>
-                    <ellipse cx="102" cy="30" rx="5" ry="3.2" fill="#4CAF65" transform="rotate(25 102 30)"/>
-                    <ellipse cx="120" cy="27" rx="6.5" ry="4" fill="#6BCB77" transform="rotate(-20 120 27)"/>
-                    <ellipse cx="138" cy="29" rx="5.5" ry="3.5" fill="#5DBF6E" transform="rotate(16 138 29)"/>
-                    <ellipse cx="156" cy="26" rx="6" ry="3.8" fill="#6BCB77" transform="rotate(-18 156 26)"/>
-                    <ellipse cx="174" cy="30" rx="5.5" ry="3.5" fill="#4CAF65" transform="rotate(22 174 30)"/>
-                    <ellipse cx="192" cy="27" rx="6" ry="3.8" fill="#6BCB77" transform="rotate(-24 192 27)"/>
-                    <ellipse cx="210" cy="29" rx="5.5" ry="3.5" fill="#5DBF6E" transform="rotate(14 210 29)"/>
-                    <ellipse cx="228" cy="26" rx="6.5" ry="4" fill="#6BCB77" transform="rotate(-16 228 26)"/>
-                    <ellipse cx="246" cy="30" rx="5" ry="3.2" fill="#4CAF65" transform="rotate(20 246 30)"/>
-                    <ellipse cx="264" cy="27" rx="6" ry="3.8" fill="#6BCB77" transform="rotate(-19 264 27)"/>
-                    <ellipse cx="282" cy="29" rx="5.5" ry="3.5" fill="#5DBF6E" transform="rotate(17 282 29)"/>
-                    <ellipse cx="300" cy="26" rx="6" ry="3.8" fill="#6BCB77" transform="rotate(-21 300 26)"/>
-                    <ellipse cx="314" cy="28" rx="5" ry="3.2" fill="#4CAF65" transform="rotate(12 314 28)"/>
-                    <ellipse cx="328" cy="27" rx="5.5" ry="3.5" fill="#6BCB77" transform="rotate(-16 328 27)"/>
-                    <ellipse cx="342" cy="29" rx="5" ry="3.2" fill="#5DBF6E" transform="rotate(18 342 29)"/>
-                    <ellipse cx="352" cy="26" rx="5.5" ry="3.5" fill="#6BCB77" transform="rotate(-20 352 26)"/>
-                    <ellipse cx="12" cy="40" rx="4.5" ry="3" fill="#5DBF6E" transform="rotate(12 12 40)"/>
-                    <ellipse cx="10" cy="48" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(-8 10 48)"/>
-                    <ellipse cx="52" cy="40" rx="4.5" ry="3" fill="#5DBF6E" transform="rotate(12 52 40)"/>
-                    <ellipse cx="50" cy="48" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(-8 50 48)"/>
-                    <ellipse cx="90" cy="38" rx="4.5" ry="3" fill="#6BCB77" transform="rotate(-10 90 38)"/>
-                    <ellipse cx="88" cy="46" rx="4" ry="2.6" fill="#5DBF6E" transform="rotate(14 88 46)"/>
-                    <ellipse cx="126" cy="39" rx="4.5" ry="3" fill="#4CAF65" transform="rotate(11 126 39)"/>
-                    <ellipse cx="124" cy="47" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(-12 124 47)"/>
-                    <ellipse cx="166" cy="38" rx="4.5" ry="3" fill="#5DBF6E" transform="rotate(-9 166 38)"/>
-                    <ellipse cx="164" cy="46" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(13 164 46)"/>
-                    <ellipse cx="198" cy="39" rx="4.5" ry="3" fill="#6BCB77" transform="rotate(10 198 39)"/>
-                    <ellipse cx="196" cy="47" rx="4" ry="2.6" fill="#4CAF65" transform="rotate(-11 196 47)"/>
-                    <ellipse cx="234" cy="38" rx="4.5" ry="3" fill="#5DBF6E" transform="rotate(-14 234 38)"/>
-                    <ellipse cx="232" cy="46" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(9 232 46)"/>
-                    <ellipse cx="270" cy="39" rx="4.5" ry="3" fill="#6BCB77" transform="rotate(12 270 39)"/>
-                    <ellipse cx="268" cy="47" rx="4" ry="2.6" fill="#5DBF6E" transform="rotate(-10 268 47)"/>
-                    <ellipse cx="306" cy="38" rx="4.5" ry="3" fill="#4CAF65" transform="rotate(-13 306 38)"/>
-                    <ellipse cx="304" cy="46" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(15 304 46)"/>
-                    <ellipse cx="324" cy="38" rx="4.5" ry="3" fill="#5DBF6E" transform="rotate(-11 324 38)"/>
-                    <ellipse cx="322" cy="46" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(13 322 46)"/>
-                    <ellipse cx="344" cy="39" rx="4.5" ry="3" fill="#4CAF65" transform="rotate(10 344 39)"/>
-                    <ellipse cx="342" cy="47" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(-12 342 47)"/>
-                    <ellipse cx="350" cy="40" rx="4.5" ry="3" fill="#5DBF6E" transform="rotate(14 350 40)"/>
-                    <ellipse cx="348" cy="48" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(-9 348 48)"/>
-                    <ellipse cx="72" cy="24" rx="4" ry="2.5" fill="#5DBF6E" transform="rotate(30 72 24)"/>
-                    <ellipse cx="148" cy="24" rx="4" ry="2.5" fill="#6BCB77" transform="rotate(-28 148 24)"/>
-                    <ellipse cx="218" cy="24" rx="4" ry="2.5" fill="#5DBF6E" transform="rotate(26 218 24)"/>
-                    <ellipse cx="288" cy="24" rx="4" ry="2.5" fill="#6BCB77" transform="rotate(-24 288 24)"/>
-                </g>
+                <g id="vbRootsGroup"></g>
+                <g id="vbLeavesGroup"></g>
             </svg>
         </div>
 
@@ -2949,24 +2913,24 @@
                     </div>
                 </div>
                 <div class="gallery">
-                <div class="tile tile-photo">
-                    <img src="https://i.pinimg.com/736x/55/20/9e/55209e62205d63d52198ab5d25891f45.jpg" alt="Waguri &amp; Nico">
-                </div>
-                <div class="tile tile-photo">
-                    <img src="https://i.pinimg.com/736x/1f/4e/3b/1f4e3b6623bce8b10318204310210cc9.jpg" alt="Waguri &amp; Nico">
-                </div>
-                <div class="tile tile-photo">
-                    <img src="https://i.pinimg.com/736x/8b/2e/8f/8b2e8f5cdf23037cdef51b082ac7f8e5.jpg" alt="Waguri &amp; Nico">
-                </div>
-                <div class="tile tile-photo">
-                    <img src="https://i.pinimg.com/1200x/3b/1f/88/3b1f889595c3babd8e5081095219fcd3.jpg" alt="Waguri &amp; Nico">
-                </div>
-                <div class="tile tile-photo">
-                    <img src="https://i.pinimg.com/736x/25/61/88/2561880577f3d5a902c3cac2bdf05570.jpg" alt="Waguri &amp; Nico">
-                </div>
-                <div class="tile tile-photo">
-                    <img src="https://i.pinimg.com/736x/89/24/24/892424d806911c73ee3edafdb3c30ad0.jpg" alt="Waguri &amp; Nico">
-                </div>
+                    <div class="tile tile-photo">
+                        <img src="https://i.pinimg.com/736x/55/20/9e/55209e62205d63d52198ab5d25891f45.jpg" alt="Waguri &amp; Nico">
+                    </div>
+                    <div class="tile tile-photo">
+                        <img src="https://i.pinimg.com/736x/1f/4e/3b/1f4e3b6623bce8b10318204310210cc9.jpg" alt="Waguri &amp; Nico">
+                    </div>
+                    <div class="tile tile-photo">
+                        <img src="https://i.pinimg.com/736x/8b/2e/8f/8b2e8f5cdf23037cdef51b082ac7f8e5.jpg" alt="Waguri &amp; Nico">
+                    </div>
+                    <div class="tile tile-photo">
+                        <img src="https://i.pinimg.com/1200x/3b/1f/88/3b1f889595c3babd8e5081095219fcd3.jpg" alt="Waguri &amp; Nico">
+                    </div>
+                    <div class="tile tile-photo">
+                        <img src="https://i.pinimg.com/736x/25/61/88/2561880577f3d5a902c3cac2bdf05570.jpg" alt="Waguri &amp; Nico">
+                    </div>
+                    <div class="tile tile-photo">
+                        <img src="https://i.pinimg.com/736x/89/24/24/892424d806911c73ee3edafdb3c30ad0.jpg" alt="Waguri &amp; Nico">
+                    </div>
                 </div>
             </div>
         </section>
@@ -3084,6 +3048,168 @@
         function syncButterflyLayer() {
             butterflyLayer.style.height = wrapEl.offsetHeight + 'px';
         }
+
+        function generateVineDecor() {
+            const ns = 'http://www.w3.org/2000/svg';
+            const leafColors = ['#6BCB77', '#5DBF6E', '#4CAF65', '#7FD98A', '#3FA852', '#8FDB9A'];
+            const rootColors = ['#6B4F32', '#7A5C3E', '#8B6F47', '#5A4028'];
+            const leafGroup = document.getElementById('vbLeavesGroup');
+            const rootGroup = document.getElementById('vbRootsGroup');
+            const stemPath = document.querySelector('.vine-bridge .vb-stem');
+            if (!leafGroup || !rootGroup || !stemPath) return;
+
+            leafGroup.innerHTML = '';
+            rootGroup.innerHTML = '';
+
+            const stemLen = stemPath.getTotalLength();
+            const MIN_GAP = 10;
+            const slots = [];
+
+            function stemPoint(t) {
+                const len = Math.max(0, Math.min(1, t)) * stemLen;
+                const p = stemPath.getPointAtLength(len);
+                const p2 = stemPath.getPointAtLength(Math.min(len + 2, stemLen));
+                const angle = Math.atan2(p2.y - p.y, p2.x - p.x) * 180 / Math.PI;
+                return { x: p.x, y: p.y, angle: angle, t: t };
+            }
+
+            function dist(a, b) {
+                const dx = a.x - b.x;
+                const dy = a.y - b.y;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+
+            function isTooClose(x, y) {
+                for (let i = 0; i < slots.length; i++) {
+                    if (dist(slots[i], { x: x, y: y }) < MIN_GAP) return true;
+                }
+                return false;
+            }
+
+            function tryAddSlot(slot) {
+                if (isTooClose(slot.x, slot.y)) return false;
+                slots.push(slot);
+                return true;
+            }
+
+            function rootToGlobal(sp, w, h, lx, ly) {
+                const rad = sp.angle * Math.PI / 180;
+                const dx = (lx - 12) * (w / 24);
+                const dy = ly * (h / 60);
+                return {
+                    x: sp.x + dx * Math.cos(rad) - dy * Math.sin(rad),
+                    y: sp.y + dx * Math.sin(rad) + dy * Math.cos(rad)
+                };
+            }
+
+            function placeLeaf(attachX, attachY, growAngle, w, delay) {
+                const h = w * 1.45;
+                const ax = 11 / 22;
+                const ay = 31 / 32;
+                const use = document.createElementNS(ns, 'use');
+                use.setAttribute('href', '#vbLeaf');
+                use.setAttribute('x', (attachX - w * ax).toFixed(2));
+                use.setAttribute('y', (attachY - h * ay).toFixed(2));
+                use.setAttribute('width', w.toFixed(2));
+                use.setAttribute('height', h.toFixed(2));
+                use.setAttribute('transform', 'rotate(' + growAngle.toFixed(1) + ' ' + attachX.toFixed(2) + ' ' + attachY.toFixed(2) + ')');
+                use.setAttribute('class', 'vb-leaf-item');
+                use.style.color = leafColors[Math.floor(Math.random() * leafColors.length)];
+                use.style.transitionDelay = delay.toFixed(2) + 's';
+                leafGroup.appendChild(use);
+            }
+
+            const rootCount = 13;
+            const roots = [];
+
+            for (let i = 0; i < rootCount; i++) {
+                const t = (i + 0.5) / rootCount;
+                const sp = stemPoint(t);
+                const rh = 20 + (i % 3) * 7;
+                const rw = rh * 0.38;
+                roots.push({ sp: sp, w: rw, h: rh, t: t });
+
+                const rootUse = document.createElementNS(ns, 'use');
+                rootUse.setAttribute('href', '#vbRoot');
+                rootUse.setAttribute('x', (sp.x - rw * 0.5).toFixed(2));
+                rootUse.setAttribute('y', sp.y.toFixed(2));
+                rootUse.setAttribute('width', rw.toFixed(2));
+                rootUse.setAttribute('height', rh.toFixed(2));
+                rootUse.setAttribute('transform', 'rotate(' + sp.angle.toFixed(1) + ' ' + sp.x.toFixed(2) + ' ' + sp.y.toFixed(2) + ')');
+                rootUse.setAttribute('class', 'vb-root-item');
+                rootUse.style.color = rootColors[i % rootColors.length];
+                rootUse.style.transitionDelay = (t * 0.9 + 0.15).toFixed(2) + 's';
+                rootGroup.appendChild(rootUse);
+
+                const branchSlots = [
+                    { lx: 12, ly: 14, ang: 88, w: 5.5 },
+                    { lx: 4, ly: 21.5, ang: -38, w: 6 },
+                    { lx: 12, ly: 30, ang: 92, w: 5.5 },
+                    { lx: 17, ly: 38.5, ang: 38, w: 6 },
+                    { lx: 4, ly: 54.5, ang: -32, w: 5.5 },
+                    { lx: 8, ly: 60, ang: 90 + (i % 2 ? 14 : -14), w: 6.5 }
+                ];
+
+                branchSlots.forEach(function(bs, bi) {
+                    const pt = rootToGlobal(sp, rw, rh, bs.lx, bs.ly);
+                    tryAddSlot({
+                        x: pt.x,
+                        y: pt.y,
+                        angle: sp.angle + bs.ang,
+                        w: bs.w,
+                        delay: t * 0.9 + 0.25 + bi * 0.05
+                    });
+                });
+            }
+
+            function isNearRootAttach(sp, radius) {
+                for (let r = 0; r < roots.length; r++) {
+                    if (dist(sp, roots[r].sp) < radius) return true;
+                }
+                return false;
+            }
+
+            function addStemLeaf(sp, stemIdx, delay) {
+                if (isNearRootAttach(sp, 6)) return false;
+                const tilt = (stemIdx % 3 - 1) * 5;
+                return tryAddSlot({
+                    x: sp.x,
+                    y: sp.y,
+                    angle: sp.angle + 180 + tilt,
+                    w: 6.2 + (stemIdx % 3) * 0.5,
+                    delay: delay
+                });
+            }
+
+            let stemIdx = 0;
+
+            if (roots.length) {
+                const edgeTs = [roots[0].t * 0.4, roots[roots.length - 1].t + (1 - roots[roots.length - 1].t) * 0.6];
+                edgeTs.forEach(function(t) {
+                    if (addStemLeaf(stemPoint(t), stemIdx++, t * 0.85)) {}
+                });
+
+                for (let i = 1; i < roots.length; i++) {
+                    const tA = roots[i - 1].t;
+                    const tB = roots[i].t;
+                    const fills = [0.28, 0.5, 0.72];
+                    fills.forEach(function(fr) {
+                        const t = tA + (tB - tA) * fr;
+                        addStemLeaf(stemPoint(t), stemIdx++, t * 0.85);
+                    });
+                }
+            }
+
+            for (let len = 8; len < stemLen - 8; len += 9) {
+                const t = len / stemLen;
+                addStemLeaf(stemPoint(t), stemIdx++, t * 0.85);
+            }
+
+            slots.forEach(function(slot) {
+                placeLeaf(slot.x, slot.y, slot.angle, slot.w, slot.delay);
+            });
+        }
+        generateVineDecor();
 
         document.getElementById('btnOpen').addEventListener('click', function() {
             if (cover.classList.contains('open')) return;
@@ -3337,7 +3463,12 @@
             const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((diff % (1000 * 60)) / 1000);
-            const map = { d: d, h: h, m: m, s: s };
+            const map = {
+                d: d,
+                h: h,
+                m: m,
+                s: s
+            };
             Object.keys(map).forEach(function(key) {
                 const el = root.querySelector('[data-cd="' + key + '"]');
                 if (el) el.textContent = String(map[key]).padStart(2, '0');
