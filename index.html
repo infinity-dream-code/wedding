@@ -1796,6 +1796,68 @@
             position: relative;
             isolation: isolate;
             overflow: hidden;
+            padding-bottom: 32px;
+        }
+
+        .vine-bridge {
+            position: relative;
+            z-index: 4;
+            height: 68px;
+            margin: 0;
+            padding: 0;
+            pointer-events: none;
+            background: linear-gradient(180deg, var(--ivory) 50%, var(--blush) 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+
+        .vine-bridge svg {
+            display: block;
+            width: 100%;
+            height: 56px;
+            overflow: visible;
+        }
+
+        .vine-bridge .vb-stem,
+        .vine-bridge .vb-tendril {
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 480;
+            stroke-dashoffset: 480;
+            transition: stroke-dashoffset 1.6s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .vine-bridge .vb-stem {
+            stroke: #7A5C3E;
+            stroke-width: 2.1;
+        }
+
+        .vine-bridge .vb-stem-alt {
+            stroke: #A8895E;
+            stroke-width: 1.15;
+            opacity: 0.7;
+        }
+
+        .vine-bridge .vb-tendril {
+            stroke: #6B4F32;
+            stroke-width: 1.25;
+        }
+
+        .vine-bridge .vb-leaves {
+            opacity: 0;
+            transition: opacity 0.7s ease 0.9s;
+        }
+
+        .vine-bridge.active .vb-stem,
+        .vine-bridge.active .vb-tendril {
+            stroke-dashoffset: 0;
+        }
+
+        .vine-bridge.active .vb-leaves {
+            opacity: 1;
         }
 
         .sakura-rating .rating-leaf svg {
@@ -1886,6 +1948,7 @@
             position: relative;
             isolation: isolate;
             overflow: hidden;
+            padding-top: 32px;
             background: linear-gradient(180deg, var(--blush), var(--ivory));
         }
 
@@ -2747,6 +2810,77 @@
                 <p class="parents">Putra dari<br>Bapak Wardhana Nugroho &amp; Ibu Sri Handayani</p>
             </div>
         </section>
+
+        <div class="vine-bridge reveal-up" aria-hidden="true">
+            <svg viewBox="0 0 360 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
+                <path class="vb-stem" d="M4 28 C 48 22, 96 32, 144 27 C 192 22, 240 31, 288 27 C 324 24, 352 28, 356 28" />
+                <path class="vb-stem vb-stem-alt" d="M4 30 C 48 25, 96 34, 144 30 C 192 25, 240 33, 288 30 C 324 26, 352 30, 356 30" />
+                <path class="vb-tendril" d="M14 28 C 10 36, 16 44, 12 52 C 8 56, 14 54, 10 56" />
+                <path class="vb-tendril" d="M36 27 C 32 35, 38 43, 34 50 C 30 54, 36 52, 32 54" />
+                <path class="vb-tendril" d="M58 28 C 54 36, 60 44, 56 52 C 52 56, 58 54, 54 56" />
+                <path class="vb-tendril" d="M92 27 C 88 35, 94 43, 90 50 C 86 54, 92 52, 88 54" />
+                <path class="vb-tendril" d="M128 28 C 124 38, 130 46, 126 52 C 122 55, 128 53, 124 55" />
+                <path class="vb-tendril" d="M164 27 C 160 36, 168 44, 164 51 C 160 54, 166 52, 162 54" />
+                <path class="vb-tendril" d="M196 28 C 192 37, 200 45, 196 52 C 192 55, 198 53, 194 55" />
+                <path class="vb-tendril" d="M232 27 C 228 36, 236 44, 232 51 C 228 54, 234 52, 230 54" />
+                <path class="vb-tendril" d="M268 28 C 264 37, 272 45, 268 52 C 264 55, 270 53, 266 55" />
+                <path class="vb-tendril" d="M304 28 C 300 36, 308 44, 304 50 C 300 54, 306 52, 302 54" />
+                <path class="vb-tendril" d="M326 27 C 322 35, 328 43, 324 50 C 320 54, 326 52, 322 54" />
+                <path class="vb-tendril" d="M346 28 C 342 36, 348 44, 344 52 C 340 56, 346 54, 342 56" />
+                <g class="vb-leaves">
+                    <ellipse cx="10" cy="27" rx="5.5" ry="3.5" fill="#6BCB77" transform="rotate(-18 10 27)"/>
+                    <ellipse cx="22" cy="29" rx="5" ry="3.2" fill="#5DBF6E" transform="rotate(20 22 29)"/>
+                    <ellipse cx="34" cy="26" rx="5.5" ry="3.5" fill="#6BCB77" transform="rotate(-22 34 26)"/>
+                    <ellipse cx="48" cy="27" rx="6.5" ry="4" fill="#6BCB77" transform="rotate(-22 48 27)"/>
+                    <ellipse cx="66" cy="29" rx="5.5" ry="3.5" fill="#5DBF6E" transform="rotate(18 66 29)"/>
+                    <ellipse cx="84" cy="26" rx="6" ry="3.8" fill="#6BCB77" transform="rotate(-15 84 26)"/>
+                    <ellipse cx="102" cy="30" rx="5" ry="3.2" fill="#4CAF65" transform="rotate(25 102 30)"/>
+                    <ellipse cx="120" cy="27" rx="6.5" ry="4" fill="#6BCB77" transform="rotate(-20 120 27)"/>
+                    <ellipse cx="138" cy="29" rx="5.5" ry="3.5" fill="#5DBF6E" transform="rotate(16 138 29)"/>
+                    <ellipse cx="156" cy="26" rx="6" ry="3.8" fill="#6BCB77" transform="rotate(-18 156 26)"/>
+                    <ellipse cx="174" cy="30" rx="5.5" ry="3.5" fill="#4CAF65" transform="rotate(22 174 30)"/>
+                    <ellipse cx="192" cy="27" rx="6" ry="3.8" fill="#6BCB77" transform="rotate(-24 192 27)"/>
+                    <ellipse cx="210" cy="29" rx="5.5" ry="3.5" fill="#5DBF6E" transform="rotate(14 210 29)"/>
+                    <ellipse cx="228" cy="26" rx="6.5" ry="4" fill="#6BCB77" transform="rotate(-16 228 26)"/>
+                    <ellipse cx="246" cy="30" rx="5" ry="3.2" fill="#4CAF65" transform="rotate(20 246 30)"/>
+                    <ellipse cx="264" cy="27" rx="6" ry="3.8" fill="#6BCB77" transform="rotate(-19 264 27)"/>
+                    <ellipse cx="282" cy="29" rx="5.5" ry="3.5" fill="#5DBF6E" transform="rotate(17 282 29)"/>
+                    <ellipse cx="300" cy="26" rx="6" ry="3.8" fill="#6BCB77" transform="rotate(-21 300 26)"/>
+                    <ellipse cx="314" cy="28" rx="5" ry="3.2" fill="#4CAF65" transform="rotate(12 314 28)"/>
+                    <ellipse cx="328" cy="27" rx="5.5" ry="3.5" fill="#6BCB77" transform="rotate(-16 328 27)"/>
+                    <ellipse cx="342" cy="29" rx="5" ry="3.2" fill="#5DBF6E" transform="rotate(18 342 29)"/>
+                    <ellipse cx="352" cy="26" rx="5.5" ry="3.5" fill="#6BCB77" transform="rotate(-20 352 26)"/>
+                    <ellipse cx="12" cy="40" rx="4.5" ry="3" fill="#5DBF6E" transform="rotate(12 12 40)"/>
+                    <ellipse cx="10" cy="48" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(-8 10 48)"/>
+                    <ellipse cx="52" cy="40" rx="4.5" ry="3" fill="#5DBF6E" transform="rotate(12 52 40)"/>
+                    <ellipse cx="50" cy="48" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(-8 50 48)"/>
+                    <ellipse cx="90" cy="38" rx="4.5" ry="3" fill="#6BCB77" transform="rotate(-10 90 38)"/>
+                    <ellipse cx="88" cy="46" rx="4" ry="2.6" fill="#5DBF6E" transform="rotate(14 88 46)"/>
+                    <ellipse cx="126" cy="39" rx="4.5" ry="3" fill="#4CAF65" transform="rotate(11 126 39)"/>
+                    <ellipse cx="124" cy="47" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(-12 124 47)"/>
+                    <ellipse cx="166" cy="38" rx="4.5" ry="3" fill="#5DBF6E" transform="rotate(-9 166 38)"/>
+                    <ellipse cx="164" cy="46" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(13 164 46)"/>
+                    <ellipse cx="198" cy="39" rx="4.5" ry="3" fill="#6BCB77" transform="rotate(10 198 39)"/>
+                    <ellipse cx="196" cy="47" rx="4" ry="2.6" fill="#4CAF65" transform="rotate(-11 196 47)"/>
+                    <ellipse cx="234" cy="38" rx="4.5" ry="3" fill="#5DBF6E" transform="rotate(-14 234 38)"/>
+                    <ellipse cx="232" cy="46" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(9 232 46)"/>
+                    <ellipse cx="270" cy="39" rx="4.5" ry="3" fill="#6BCB77" transform="rotate(12 270 39)"/>
+                    <ellipse cx="268" cy="47" rx="4" ry="2.6" fill="#5DBF6E" transform="rotate(-10 268 47)"/>
+                    <ellipse cx="306" cy="38" rx="4.5" ry="3" fill="#4CAF65" transform="rotate(-13 306 38)"/>
+                    <ellipse cx="304" cy="46" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(15 304 46)"/>
+                    <ellipse cx="324" cy="38" rx="4.5" ry="3" fill="#5DBF6E" transform="rotate(-11 324 38)"/>
+                    <ellipse cx="322" cy="46" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(13 322 46)"/>
+                    <ellipse cx="344" cy="39" rx="4.5" ry="3" fill="#4CAF65" transform="rotate(10 344 39)"/>
+                    <ellipse cx="342" cy="47" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(-12 342 47)"/>
+                    <ellipse cx="350" cy="40" rx="4.5" ry="3" fill="#5DBF6E" transform="rotate(14 350 40)"/>
+                    <ellipse cx="348" cy="48" rx="4" ry="2.6" fill="#6BCB77" transform="rotate(-9 348 48)"/>
+                    <ellipse cx="72" cy="24" rx="4" ry="2.5" fill="#5DBF6E" transform="rotate(30 72 24)"/>
+                    <ellipse cx="148" cy="24" rx="4" ry="2.5" fill="#6BCB77" transform="rotate(-28 148 24)"/>
+                    <ellipse cx="218" cy="24" rx="4" ry="2.5" fill="#5DBF6E" transform="rotate(26 218 24)"/>
+                    <ellipse cx="288" cy="24" rx="4" ry="2.5" fill="#6BCB77" transform="rotate(-24 288 24)"/>
+                </g>
+            </svg>
+        </div>
 
         <section id="event">
             <div class="ornament reveal-zoom" style="width:64px;top:4%;right:-12px;" data-parallax="0.12">
