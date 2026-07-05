@@ -4560,25 +4560,27 @@
                 cover.style.display = 'none';
             }
 
+            var heroRevealMs = 600;
             var curtainDoneMs = 3700;
 
             document.body.style.overflow = 'auto';
+
+            window.setTimeout(function() {
+                document.body.classList.add('invitation-open');
+                document.querySelectorAll('#hero .reveal-up, #hero .reveal-zoom, #hero .flourish').forEach(function(el, i) {
+                    window.setTimeout(function() {
+                        el.classList.add('active');
+                    }, i * 50);
+                });
+            }, heroRevealMs);
 
             window.setTimeout(function() {
                 startPetals();
             }, curtainDoneMs - 500);
 
             window.setTimeout(function() {
-                document.querySelectorAll('#hero .reveal-up, #hero .reveal-zoom, #hero .flourish').forEach(function(el, i) {
-                    window.setTimeout(function() {
-                        el.classList.add('active');
-                    }, i * 70);
-                });
-            }, curtainDoneMs - 100);
-
-            window.setTimeout(function() {
                 hideCover();
-                document.body.classList.add('invitation-open', 'music-ready');
+                document.body.classList.add('music-ready');
                 startMusic();
                 showWelcomeBanner();
                 syncPetalLayer();
