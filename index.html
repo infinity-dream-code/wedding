@@ -1907,8 +1907,11 @@
         .scroll-hint {
             position: absolute;
             bottom: calc(82px + env(safe-area-inset-bottom, 0px));
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            right: 0;
+            width: max-content;
+            margin-left: auto;
+            margin-right: auto;
             text-decoration: none;
             display: flex;
             flex-direction: column;
@@ -1917,11 +1920,11 @@
         }
 
         .scroll-hint.reveal-up {
-            transform: translateX(-50%) translateY(34px);
+            transform: translateY(34px);
         }
 
         .scroll-hint.reveal-up.active {
-            transform: translateX(-50%) translateY(0);
+            transform: translateY(0);
         }
 
         .mouse_scroll {
@@ -1951,38 +1954,6 @@
             animation: scrollWheel 2.2s cubic-bezier(0.15, 0.41, 0.69, 0.94) infinite;
         }
 
-        .scroll-arrows {
-            margin-top: 6px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-        }
-
-        .scroll-arrows span {
-            display: block;
-            width: 8px;
-            height: 8px;
-            border-right: 2px solid var(--wine);
-            border-bottom: 2px solid var(--wine);
-            transform: rotate(45deg);
-            margin-top: -3px;
-            opacity: 0;
-            animation: scrollArrow 1.4s ease-in-out infinite;
-        }
-
-        .scroll-arrows span:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .scroll-arrows span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .scroll-arrows span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
         @keyframes scrollWheel {
             0% {
                 opacity: 0;
@@ -1997,23 +1968,6 @@
             100% {
                 opacity: 0;
                 transform: translateY(16px);
-            }
-        }
-
-        @keyframes scrollArrow {
-            0% {
-                opacity: 0;
-                transform: rotate(45deg) translateY(-4px);
-            }
-
-            50% {
-                opacity: 0.75;
-                transform: rotate(45deg) translateY(0);
-            }
-
-            100% {
-                opacity: 0;
-                transform: rotate(45deg) translateY(4px);
             }
         }
 
@@ -3863,11 +3817,6 @@
                 <div class="mouse_scroll" aria-hidden="true">
                     <div class="scroll-mouse">
                         <span class="scroll-mouse-wheel"></span>
-                    </div>
-                    <div class="scroll-arrows">
-                        <span></span>
-                        <span></span>
-                        <span></span>
                     </div>
                 </div>
             </a>
